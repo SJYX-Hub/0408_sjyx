@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 Flex布局</title>
+    <style>
+        ul{
+            margin: 0;
+            list-style: none;
+        }
+        .list li{
+            width: 40%;
+            line-height: 300px;
+            text-align: center;
+            background-color: blueviolet;
+            color: #f7eded;
+            border: 3px solid #82be33;
+        }
+        .list{
+            display: flex;
+            /*flex-direction: column;*/
+            /*换行就是不压缩*/
+            flex-wrap: wrap;
+            justify-content: space-between;
+            /*justify-content: space-around;*/
+        .list .col1{
+            line-height: 100px;
+            /*当每个元素的宽度之和小于父元素的宽度时，flex-grow属性会自动增长元素的宽度，使元素的宽度之和等于父元素的宽度*/
+            /*flex-grow: 1;*/
+            /*flex-shrink: 0;*/
+
+        }
+        .list .col2{
+            line-height: 100px;
+            /*当每个元素的宽度之和小于父元素的宽度时，flex-grow属性会自动增长元素的宽度，使元素的宽度之和等于父元素的宽度*/
+            /*flex-grow: 1;*/
+            flex-shrink: 3;
+        }
+
+
+        }
+    </style>
+    <!-- 主要解决4个问题：
+    1、flex有哪些作用？
+    display为flex的元素的子元素在同一行显示
+    2、什么叫做flex容器和项目？
+    flex容器：display为flex的元素
+    flex项目：flex容器中的子元素
+    3、flex容器的属性有哪些？
+    flex-direction：flex容器的轴方向
+    justify-content：flex容器的轴方向上的对齐方式
+    align-items：flex容器的侧轴方向上的对齐方式
+    align-content：flex容器的侧轴方向上的对齐方式（多行）
+    flex-wrap：flex容器是否换行
+    flex-shrink：flex项目是否缩放
+    flex-grow：flex项目是否增长
+    flex-basis：flex项目的基础大小
+    4、flex项目的属性有哪些？
+    order：flex项目的排序
+    flex：flex项目的属性
+    flex-shrink：flex项目是否缩放
+    flex-grow：flex项目是否增长
+    flex-basis：flex项目的基础大小
+    align-self：flex项目的侧轴方向上的对齐方式
+    align-self：flex项目的侧轴方向上的对齐方式（默认值）
+    align-self：flex项目的侧轴方向上的对齐方式（自定义值）
+    align-self：flex项目的侧轴方向上的对齐方式（继承值）
+    -->
+</head>
+<body>
+    <ul class="list">
+        <li>1</li>
+        <li class="col1">2</li>
+        <li class="col2">3</li>
+    </ul>
+</body>
+</html>

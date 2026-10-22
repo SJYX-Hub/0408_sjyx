@@ -1,0 +1,33 @@
+h1,h2,h3,h4,h5,h6,p,ul,div,body,dd,dl,dt,from{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+img{
+    border: none;
+}
+body{
+    min-width: 320px;
+    margin: 0 auto;
+}
+html{
+    font-size: 5.4vw;
+    /* vw:viewport width 1vw是视口宽度的1% */
+    /* vh:viewport height 1vh是视口高度的1% */
+}
+.meta{
+    display: flex;
+    justify-content: space-between;
+}
+/*给文字盒子起类名 .ellipsis-text */
+.ellipsis-text{
+    width:220px;  /*❗一定要宽度，否则省略号无效*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

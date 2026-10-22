@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 第七周幻灯片</title>
+    <style>
+        div,ul{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        /*幻灯片容器 overflow:hidden隐藏超出容器的部分，这是实现幻灯片的关键*/
+        .slide{
+            overflow: hidden;
+        }
+        .slide ul{
+            width: 500%;
+            display: flex;
+            animation: gaoyn 10s infinite;
+        }
+        .slide li{
+            width: 20%;
+        }
+        .slide img{
+            width: 100%;
+        }
+        .slide p{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #7cbce7d8;
+            width: 100%;
+            text-align: center;
+            height: 36px;
+            line-height: 36px;
+            color: #9984e4;
+        }
+        @keyframes gaoyn{
+            10%{
+                margin-left: 0;
+            }
+            20%{
+                margin-left: -100%;
+            }
+            30%{
+                margin-left: -100%;
+            }
+            40%{
+                margin-left: -200%;
+            }
+            50%{
+                margin-left: -200%;
+            }
+            60%{
+                margin-left: -300%;
+            }
+            70%{
+                margin-left: -300%;
+            }
+            80%{
+                margin-left: -400%;
+            }
+            90%{
+                margin-left: -400%;
+            }
+            100%{
+                margin-left: 0;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <ul>   
+            <li>
+                <a href="#"><img src="././img/1.jpg"></a>
+                <p>宋纪雨溪的文字</p>
+            </li>
+            <li>
+                <a href="#"><img src="././img/2.jpg"></a>
+                <p>宋纪雨溪的文字</p>
+            </li>
+            <li>
+                <a href="#"><img src="././img/3.jpg"></a>
+                <p>宋纪雨溪的文字</p>
+            </li>
+            <li>
+                <a href="#"><img src="././img/4.jpg"></a>
+                <p>宋纪雨溪的文字</p>
+            </li>
+            <li>
+                <a href="#"><img src="././img/5.jpg"></a>
+                <p>宋纪雨溪的文字</p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

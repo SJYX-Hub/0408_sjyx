@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 CSS3选择器</title>
+    <style>
+        .parent{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .parent h2{
+            width: 100%;
+            text-align: center;
+            margin: 8px;
+        }
+        .box{
+            width: 160px;
+            height: 160px;
+            background-color: #ccc;
+            margin: 8px;
+            text-align: center;
+            line-height: 160px;
+            transition: all 0.5s;
+        }
+        /* 选择.box ，且他的父元素的第2个子元素，:hover在鼠标悬停时改变样式*/
+        .box:nth-child(2):hover{
+            background-color: red;
+            font-size: 130px;
+        }
+        /* 选择.box ，且他的父元素的第3个子元素，:hover在鼠标悬停时改变样式*/
+        .box:nth-child(3):hover{
+            background-color: blue;
+            border-radius: 10px 20px 30px 40px;
+        }
+        .box:nth-child(4):hover{
+            background-color: #c00;
+            /* 盒子阴影 */
+            box-shadow: -5px 10px 5px #00c;
+        }
+        /* 选择.box ，且他是第4个兄弟元素 */
+        /* 选择父元素下的第4个.box */
+        .box:nth-of-type(4){
+            font-size: 100px;
+            /* 文本阴影 */
+            text-shadow: 5px 5px 5px #0cc;
+        }
+        .box:nth-of-type(5){
+            /* 线性渐变 */
+            /* background: linear-gradient( #f00, #0f0, #00f,#ff0, #0ff, #f0f); */
+            background: linear-gradient( 45deg, #f00, #0f0, #00f,#ff0, #0ff, #f0f);
+        }
+        /* 选择第5个.box元素的下一个兄弟元素 */
+        .box:nth-of-type(5)+.box:hover{
+            /* 径向渐变 */
+            background: radial-gradient(#000,#ccc,#eee, #fff);
+        }
+        .box:nth-of-type(7):hover{
+            transform: scale(.8);
+        }
+        .box:nth-of-type(8):hover{
+            transform: rotate(-45deg);
+        }
+        .box:nth-of-type(9):hover{
+            transform: translateY(20px);
+        }
+        .box:nth-of-type(10):hover{
+            transform: skewY(20deg);
+        }
+        .box.box:nth-child(2):hover{
+            transform: translateY(20px) scale(1.2) rotate(2deg);
+        }
+        .box.box:nth-child(1):hover::after{
+            content: '#';
+            color: red;
+        }
+        .box:nth-child(odd):hover{
+            color: rgb(223, 35, 116);
+            font-size: 130px;
+        }
+        .box:nth-child(even):hover::first-letter{
+            color: rgb(255, 166, 0);
+        }
+        .box:nth-child(3n+1)::before{
+            content: '#';
+            color: rgb(51, 185, 91);
+        }
+        [class~=box]{
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <h2 >CSS3选择器</h2>
+        <!-- div.box*12{$} -->
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+        <div class="box">10</div>
+        <div class="box">11</div>
+        <div class="box">12</div>
+    </div>
+    
+</body>
+</html>

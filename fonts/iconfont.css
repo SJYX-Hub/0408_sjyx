@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 5243605 */
+  src: url('iconfont.woff2?t=1792042395404') format('woff2'),
+       url('iconfont.woff?t=1792042395404') format('woff'),
+       url('iconfont.ttf?t=1792042395404') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-carrier:before {
+  content: "\e914";
+}
+
+.icon-keji-:before {
+  content: "\e65e";
+}
+
+.icon-putao:before {
+  content: "\e60c";
+}
+
+.icon-leida-faxianx:before {
+  content: "\eadb";
+}
+
+.icon-tuijian:before {
+  content: "\e606";
+}
+
+.icon-baozi-:before {
+  content: "\e608";
+}
+
+.icon-wode:before {
+  content: "\e61a";
+}
+
+.icon-shouyechangguishouye:before {
+  content: "\e600";
+}
+
+.icon-dengta:before {
+  content: "\e777";
+}
+
+.icon-daxiang:before {
+  content: "\e778";
+}
+
+.icon-dangao:before {
+  content: "\e779";
+}
+
+.icon-jingyu:before {
+  content: "\e77a";
+}
+
+.icon-diejimu:before {
+  content: "\e77b";
+}
+
+.icon-taiyang:before {
+  content: "\e77c";
+}
+
+.icon-fagu:before {
+  content: "\e78b";
+}
+
+.icon-caidan:before {
+  content: "\e78c";
+}
+
+.icon-labi:before {
+  content: "\e78d";
+}
+

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408宋纪雨溪 第一次课-HTML标签</title>
+</head>
+<body>
+    <!-- ctrl+/ -->
+    <!-- alt+b 默认浏览器打开-->
+    <!-- alt+shfit+b 选择浏览器打开 -->
+    <!-- 标题标签：h1-h6 -->
+    <!--1、 块级元素 / 标签:独占一行：header、main、footer、aside、nav、div、p、h1-h6、li、ui-->
+    <header id="top">
+        <h1>前端网页课程</h1>
+        <p>课程：HTMl、CSS、JavaScript</p>
+        <p><b>内容</b>与<strong>样式</strong>相分离</p>
+        <!-- 锚点链接导航 -->
+        <a href="#id">顶部</a>
+        <a href="#list">课程清单</a>
+        <a href="#ele">html元素</a>
+    </header>
+    <!--2、行内元素：strong \em (强调内容)  -->
+    <main id="main">
+        <div>
+            <h2>网站简介</h2>
+            <em>提示：</em>高
+            <span style="background-color: aquamarine;color: rgb(166, 150, 228);">是1</span>
+        </div>
+        <section>
+            <h3>课程清单</h3>
+            <ul>
+                <li>工具环境搭建</li>
+                <li>HTML内容</li>
+                <li>CSS样式与布局</li>
+            </ul>
+            <ol>
+                <li>
+                    <a href="#">空链接</a>
+                </li>
+                <li>
+                    <a href="https://lenovo.ilive.cn/?f=stee">浏览器</a>
+                </li>
+            </ol>
+        </section>
+
+        <section id="ele">
+            <h4>块级元素：独占一行</h4>
+            <h5>h1-h6</h5>
+            <div>div标签</div>
+            <p>p标签</p>
+            <ul>
+                <li>ul标签</li>
+                <li>li标签</li>
+            </ul>
+            <h6>行内元素：不换行 </h6>
+            <span>span标签</span>
+            <strong>strong标签</strong>
+            <em>em标签</em>
+            <a href="#">a标签</a>
+            <h6>块内行元素</h6>
+            <img src="./img/1.jpg" alt="图片1" />
+            <h6>空元素</h6>
+            <img src="./img/2.jpg" alt="图片2" />
+            <input type="text" placeholder="请输入" />
+            <h6>颜色三种写法</h6>
+            <div style="background-color: rgb(203, 165, 237);">颜色英文名称</div>
+            <div style="background-color: #97e473;">颜色十六进制</div>
+            <div style="background-color: rgba(240, 88, 161, 0.486);">颜色rgb</div>
+
+            <section id="from">
+                <h4>表格</h4>
+                <table>
+                    <tr>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                    </tr>
+                    <tr>
+                        <td>宋纪雨溪</td>
+                        <td>女</td>
+                        <td>20</td>
+                    </tr>
+                </table>
+            </section>
+
+            <h4>表单</h4>
+            <form action="">
+                <label for="username">用户名：</label>
+                <input type="text" id="username" placeholder="请输入用户名" />
+                <label for="password">密码：</label>
+                <input type="password" id="password" placeholder="请输入密码" />
+                <br />
+                性别：
+                <label><input type="radio" name="gender" id="male" />男</label>
+                <label><input type="radio" name="gender" id="female" />女</label>
+                <br />
+                爱好：
+                <label><input type="checkbox" name="hobby" id="hobby1" />编程</label>
+                <label><input type="checkbox" name="hobby" id="hobby2" />篮球</label>
+                <label><input type="checkbox" name="hobby" id="hobby3" />跑步</label>
+                <label><input type="checkbox" name="hobby" id="hobby4" />旅游</label>
+                <br />
+                出生日：
+                </label><input type="date" />
+                <br />
+                邮箱：
+                <input type="email" id="email" placeholder="请输入邮箱" />
+                <br />
+                自我介绍：
+                <label for="introduction">请输入您的自我介绍：</label>
+                <textarea id="" name="" rows="10" cols="30"></textarea>
+                <br />
+                <input type="submit" value="提交" />
+                <input type="reset" value="重置" />
+
+
+
+            </form>
+        </section>
+    </main>
+
+    <!-- 社团招新网站-->
+    <hr />
+    <section id="club" style="text-align: center; margin-top: 40px;">
+        <h2 style="border-bottom: 2px solid #333; padding-bottom: 10px; display: inline-block;">校园社团招新</h2>
+
+        <div>
+            <h3>关于我们</h3>
+            <p>我们是一个充满活力的校园社团联合会，致力于为同学们提供丰富多样的课外活动。无论你热爱运动、艺术、科技还是公益，这里都有属于你的舞台！</p>
+            <img src="./img/3.jpg" alt="社团活动图片" style="width: 300px; height: 200px; object-fit: cover;" />
+        </div>
+
+        <div>
+            <h3>热门社团</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 20px 0;">
+                    <img src="./img/4.jpg" alt="篮球社" style="width: 200px; height: 150px; object-fit: cover;" />
+                    <h4 style="margin: 10px 0;">篮球社</h4>
+                    <p>每周末训练，欢迎热爱篮球的你！</p>
+                </li>
+                <li style="margin: 20px 0;">
+                    <img src="./img/5.jpg" alt="摄影社" style="width: 200px; height: 150px; object-fit: cover;" />
+                    <h4 style="margin: 10px 0;">摄影社</h4>
+                    <p>记录校园生活，捕捉美好瞬间。</p>
+                </li>
+                <li style="margin: 20px 0;">
+                    <img src="./img/6.jpg" alt="编程社" style="width: 200px; height: 150px; object-fit: cover;" />
+                    <h4 style="margin: 10px 0;">编程社</h4>
+                    <p>一起学代码，做项目，参加比赛。</p>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>招新要求</h3>
+            <table style="margin: 0 auto; border-collapse: collapse;">
+                <tr>
+                    <th style="border: 1px solid #333; padding: 8px;">社团名称</th>
+                    <th style="border: 1px solid #333; padding: 8px;">招募人数</th>
+                    <th style="border: 1px solid #333; padding: 8px;">报名截止</th>
+                    <th style="border: 1px solid #333; padding: 8px;">基础要求</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #333; padding: 8px;">篮球社</td>
+                    <td style="border: 1px solid #333; padding: 8px;">30人</td>
+                    <td style="border: 1px solid #333; padding: 8px;">9月15日</td>
+                    <td style="border: 1px solid #333; padding: 8px;">会打篮球优先</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #333; padding: 8px;">摄影社</td>
+                    <td style="border: 1px solid #333; padding: 8px;">20人</td>
+                    <td style="border: 1px solid #333; padding: 8px;">9月20日</td>
+                    <td style="border: 1px solid #333; padding: 8px;">有无相机均可</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #333; padding: 8px;">编程社</td>
+                    <td style="border: 1px solid #333; padding: 8px;">25人</td>
+                    <td style="border: 1px solid #333; padding: 8px;">9月18日</td>
+                    <td style="border: 1px solid #333; padding: 8px;">对编程感兴趣即可</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h3>立即报名</h3>
+            <form action="">
+                <label for="name">姓名：</label>
+                <input type="text" id="name" placeholder="请输入姓名" />
+                <br />
+                <label for="stuId">学号：</label>
+                <input type="text" id="stuId" placeholder="请输入学号" />
+                <br />
+                <label for="phone">手机号：</label>
+                <input type="tel" id="phone" placeholder="请输入手机号" />
+                <br />
+                性别：
+                <label><input type="radio" name="sex" value="male" />男</label>
+                <label><input type="radio" name="sex" value="female" />女</label>
+                <br />
+                意向社团：
+                <label><input type="checkbox" name="club" value="basketball" />篮球社</label>
+                <label><input type="checkbox" name="club" value="photo" />摄影社</label>
+                <label><input type="checkbox" name="club" value="code" />编程社</label>
+                <br />
+                <label for="interview">期望面试日期：</label>
+                <input type="date" id="interview" />
+                <br />
+                <label for="intro">自我介绍：</label>
+                <textarea id="intro" rows="4" cols="40" placeholder="简单介绍一下自己吧~"></textarea>
+                <br />
+                <input type="submit" value="提交报名" />
+                <input type="reset" value="重新填写" />
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#">返回顶部</a>
+    </footer>
+
+</body>
+</html>

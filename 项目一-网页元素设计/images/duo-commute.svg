@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-label="通勤系列：驼色风衣与托特包">
+  <defs>
+    <linearGradient id="bgCom" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d3dad0"/><stop offset="1" stop-color="#c2cbc0"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#cfb08a"/><stop offset="1" stop-color="#b8936a"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bgCom)"/>
+  <path d="M150 1100V480a300 300 0 0 1 600 0v620z" fill="#dce2d8"/>
+  <ellipse cx="450" cy="960" rx="250" ry="36" fill="#3f4a3d" opacity="0.12"/>
+  <g fill="none" stroke="#8b9788" stroke-width="8" stroke-linecap="round">
+    <path d="M470 250v-30a24 24 0 1 1 24-24"/>
+    <path d="M470 250 330 340h280z"/>
+  </g>
+  <g>
+    <path d="M402 356 330 392 300 560l52 22 34-92-8 430h184l-6-430 34 92 52-22-30-168-72-36-26 90-26-90z"
+          fill="url(#coat)" stroke="#a8855c" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M402 356 470 470 538 356 512 342 470 420 428 342z" fill="#d8bd99" stroke="#a8855c" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M470 470v482" stroke="#a8855c" stroke-width="5"/>
+    <rect x="380" y="560" width="180" height="22" rx="8" fill="#8f6f4d"/>
+    <path d="M470 582v60" stroke="#8f6f4d" stroke-width="6"/>
+    <g fill="#c8a97f" stroke="#a8855c" stroke-width="3">
+      <circle cx="470" cy="500" r="8"/><circle cx="470" cy="640" r="8"/>
+    </g>
+    <path d="M340 760h260M330 900h280" stroke="#b99a72" stroke-width="3" opacity="0.7"/>
+  </g>
+  <g>
+    <path d="M650 690h150l-8 170h-134z" fill="#6f5b45" stroke="#574634" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M690 690c0-40 14-62 35-62s35 22 35 62" fill="none" stroke="#574634" stroke-width="9"/>
+  </g>
+  <g>
+    <path d="M300 960c0-22 18-38 46-38h36c28 0 46 16 46 38v34H300z" fill="#efe6d6" stroke="#cdbfa8" stroke-width="4"/>
+    <path d="M480 960c0-22 18-38 46-38h36c28 0 46 16 46 38v34H480z" fill="#efe6d6" stroke="#cdbfa8" stroke-width="4"/>
+    <path d="M320 994h92M500 994h92" stroke="#c3b39a" stroke-width="6"/>
+  </g>
+</svg>

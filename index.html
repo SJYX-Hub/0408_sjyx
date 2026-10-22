@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宋纪雨溪 · 高级网页设计 · 实践目录</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            background: #0a0a1a;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #ff006e, transparent 70%);
+            top: -100px;
+            left: -150px;
+            animation: float1 14s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, #3a86ff, transparent 70%);
+            bottom: -120px;
+            right: -150px;
+            animation: float2 18s ease-in-out infinite alternate;
+        }
+
+        .blob-3 {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #8338ec, transparent 70%);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+            animation: float3 22s ease-in-out infinite alternate;
+            opacity: .6;
+        }
+
+        @keyframes float1 {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(120px, 80px); }
+        }
+        @keyframes float2 {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -60px); }
+        }
+        @keyframes float3 {
+            0%   { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-40%, -60%) scale(1.2); }
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        header .badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 30px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #a78bfa;
+            margin-bottom: 22px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-family: "Orbitron", "Noto Sans SC", sans-serif;
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(120deg, #fff 20%, #ff6ec7 40%, #7ef9ff 60%, #fff 80%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 6s linear infinite;
+            letter-spacing: 1px;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        header .subtitle {
+            font-size: 15px;
+            color: rgba(255,255,255,.6);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        header .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 32px;
+        }
+
+        header .stats .stat {
+            text-align: center;
+        }
+
+        header .stats .num {
+            font-family: "Orbitron", sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6ec7, #7ef9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header .stats .lbl {
+            font-size: 11px;
+            color: rgba(255,255,255,.45);
+            letter-spacing: 2px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 40px 0 24px;
+            color: rgba(255,255,255,.5);
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            position: relative;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 18px;
+            padding: 26px 24px 22px;
+            text-decoration: none;
+            color: inherit;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            overflow: hidden;
+            outline: 1px solid transparent;
+            outline-offset: -1px;
+            transition: transform .4s cubic-bezier(.2,.9,.3,1.2), outline-color .3s, box-shadow .3s, border-color .3s;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255,255,255,.08), transparent);
+            transition: left .6s ease;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: transparent;
+            outline-color: var(--outline-color, rgba(255,255,255,.3));
+            box-shadow: 0 20px 60px -20px var(--shadow-color, rgba(131,56,236,.5));
+        }
+
+        .card:hover::before { left: 150%; }
+
+        .card .week-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            background: var(--tag-bg, rgba(255,255,255,.1));
+            color: var(--tag-color, #fff);
+            border: 1px solid var(--tag-border, rgba(255,255,255,.15));
+        }
+
+        .card .icon-ring {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 16px;
+            background: var(--icon-bg, rgba(255,255,255,.06));
+            border: 1px solid rgba(255,255,255,.08);
+            position: relative;
+            z-index: 1;
+            transition: transform .4s;
+        }
+
+        .card:hover .icon-ring {
+            transform: rotate(-8deg) scale(1.1);
+        }
+
+        .card h3 {
+            font-size: 17px;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: .5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: rgba(255,255,255,.5);
+            line-height: 1.7;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .footer-row {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px dashed rgba(255,255,255,.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .num {
+            font-family: "Orbitron", sans-serif;
+            font-size: 11px;
+            color: rgba(255,255,255,.3);
+            letter-spacing: 2px;
+        }
+
+        .card .enter {
+            font-size: 12px;
+            color: var(--enter-color, #a78bfa);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: .6;
+            transition: opacity .3s, transform .3s;
+        }
+
+        .card:hover .enter {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .prompt-box {
+            margin-top: 70px;
+            padding: 36px 40px;
+            border-radius: 20px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.08);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ff006e);
+            background-size: 300% 100%;
+            animation: rainbow 8s linear infinite;
+        }
+
+        @keyframes rainbow {
+            to { background-position: 300% 0; }
+        }
+
+        .prompt-box h2 {
+            font-size: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .prompt-box h2 .tag {
+            background: linear-gradient(135deg, #ff006e, #8338ec);
+            color: #fff;
+            font-family: "Orbitron", sans-serif;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            letter-spacing: 2px;
+        }
+
+        .prompt-box p {
+            font-size: 14px;
+            line-height: 2;
+            color: rgba(255,255,255,.6);
+            font-weight: 300;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,.06);
+            color: rgba(255,255,255,.35);
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        footer span {
+            color: #ff6ec7;
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0a0a1a; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#8338ec, #ff006e);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            header .stats { gap: 22px; }
+            .prompt-box { padding: 26px 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob-3"></div>
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <header>
+            <div class="badge">◆ Portfolio Index ◆</div>
+            <h1>ADVANCED WEB DESIGN</h1>
+            <div class="subtitle">24001010408 · 宋纪雨溪 · 课堂实践合集</div>
+            <div class="stats">
+                <div class="stat"><div class="num">18</div><div class="lbl">Works</div></div>
+                <div class="stat"><div class="num">7</div><div class="lbl">Weeks</div></div>
+                <div class="stat"><div class="num">∞</div><div class="lbl">Possibility</div></div>
+            </div>
+        </header>
+
+        <div class="section-title">All Projects</div>
+
+        <div class="grid">
+            <a class="card" href="01.html"
+               style="--outline-color:#ff6ec7; --shadow-color: rgba(255,110,199,.4); --tag-bg: rgba(255,110,199,.15); --tag-color:#ff6ec7; --tag-border:rgba(255,110,199,.3); --enter-color:#ff6ec7;">
+                <span class="week-tag">WEEK 01</span>
+                <div class="icon-ring">📄</div>
+                <h3>01.html</h3>
+                <p>第一周：HTML 基础入门练习</p>
+                <div class="footer-row"><span class="num">001</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="CSS基础.html"
+               style="--outline-color:#ffd166; --shadow-color: rgba(255,209,102,.4); --tag-bg: rgba(255,209,102,.15); --tag-color:#ffd166; --tag-border:rgba(255,209,102,.3); --enter-color:#ffd166;">
+                <span class="week-tag">WEEK 02</span>
+                <div class="icon-ring">🎨</div>
+                <h3>CSS基础.html</h3>
+                <p>第二周：CSS 样式基础语法与选择器</p>
+                <div class="footer-row"><span class="num">002</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="CSS样式优先级.html"
+               style="--outline-color:#ffd166; --shadow-color: rgba(255,209,102,.4); --tag-bg: rgba(255,209,102,.15); --tag-color:#ffd166; --tag-border:rgba(255,209,102,.3); --enter-color:#ffd166;">
+                <span class="week-tag">WEEK 02</span>
+                <div class="icon-ring">⚖️</div>
+                <h3>CSS样式优先级.html</h3>
+                <p>第二周：CSS 选择器优先级与层叠规则</p>
+                <div class="footer-row"><span class="num">003</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第二周boxModel.html"
+               style="--outline-color:#ffd166; --shadow-color: rgba(255,209,102,.4); --tag-bg: rgba(255,209,102,.15); --tag-color:#ffd166; --tag-border:rgba(255,209,102,.3); --enter-color:#ffd166;">
+                <span class="week-tag">WEEK 02</span>
+                <div class="icon-ring">📦</div>
+                <h3>第二周boxModel.html</h3>
+                <p>第二周：盒子模型 margin / padding / border</p>
+                <div class="footer-row"><span class="num">004</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第三周CSS布局.html"
+               style="--outline-color:#06ffa5; --shadow-color: rgba(6,255,165,.4); --tag-bg: rgba(6,255,165,.15); --tag-color:#06ffa5; --tag-border:rgba(6,255,165,.3); --enter-color:#06ffa5;">
+                <span class="week-tag">WEEK 03</span>
+                <div class="icon-ring">🍜</div>
+                <h3>第三周CSS布局.html</h3>
+                <p>第三周：浮动布局 + 绝对定位 + fixed 固定定位 · 美食网站主题</p>
+                <div class="footer-row"><span class="num">005</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第四周一左一右.html"
+               style="--outline-color:#7ef9ff; --shadow-color: rgba(126,249,255,.4); --tag-bg: rgba(126,249,255,.15); --tag-color:#7ef9ff; --tag-border:rgba(126,249,255,.3); --enter-color:#7ef9ff;">
+                <span class="week-tag">WEEK 04</span>
+                <div class="icon-ring">⬛⬜</div>
+                <h3>第四周一左一右.html</h3>
+                <p>第四周：Flex 弹性布局 —— 一左一右排列</p>
+                <div class="footer-row"><span class="num">006</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第四周Flex布局.html"
+               style="--outline-color:#7ef9ff; --shadow-color: rgba(126,249,255,.4); --tag-bg: rgba(126,249,255,.15); --tag-color:#7ef9ff; --tag-border:rgba(126,249,255,.3); --enter-color:#7ef9ff;">
+                <span class="week-tag">WEEK 04</span>
+                <div class="icon-ring">📐</div>
+                <h3>第四周Flex布局.html</h3>
+                <p>第四周：Flex 弹性布局综合练习</p>
+                <div class="footer-row"><span class="num">007</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第四周Flex布局上图下文.html"
+               style="--outline-color:#7ef9ff; --shadow-color: rgba(126,249,255,.4); --tag-bg: rgba(126,249,255,.15); --tag-color:#7ef9ff; --tag-border:rgba(126,249,255,.3); --enter-color:#7ef9ff;">
+                <span class="week-tag">WEEK 04</span>
+                <div class="icon-ring">🖼️</div>
+                <h3>第四周Flex布局上图下文.html</h3>
+                <p>第四周：Flex 布局 —— 上图下文卡片样式</p>
+                <div class="footer-row"><span class="num">008</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第四周Flex自适应宽度.html"
+               style="--outline-color:#7ef9ff; --shadow-color: rgba(126,249,255,.4); --tag-bg: rgba(126,249,255,.15); --tag-color:#7ef9ff; --tag-border:rgba(126,249,255,.3); --enter-color:#7ef9ff;">
+                <span class="week-tag">WEEK 04</span>
+                <div class="icon-ring">📏</div>
+                <h3>第四周Flex自适应宽度.html</h3>
+                <p>第四周：Flex 布局 —— flex-grow / flex-shrink 自适应宽度</p>
+                <div class="footer-row"><span class="num">009</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第四周上图下文绝对定位.html"
+               style="--outline-color:#7ef9ff; --shadow-color: rgba(126,249,255,.4); --tag-bg: rgba(126,249,255,.15); --tag-color:#7ef9ff; --tag-border:rgba(126,249,255,.3); --enter-color:#7ef9ff;">
+                <span class="week-tag">WEEK 04</span>
+                <div class="icon-ring">🎯</div>
+                <h3>第四周上图下文绝对定位.html</h3>
+                <p>第四周：绝对定位实现上图下文布局</p>
+                <div class="footer-row"><span class="num">010</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第五周CSS3选择器.html"
+               style="--outline-color:#c77dff; --shadow-color: rgba(199,125,255,.4); --tag-bg: rgba(199,125,255,.15); --tag-color:#c77dff; --tag-border:rgba(199,125,255,.3); --enter-color:#c77dff;">
+                <span class="week-tag">WEEK 05</span>
+                <div class="icon-ring">🔍</div>
+                <h3>第五周CSS3选择器.html</h3>
+                <p>第五周：CSS3 新增伪类 / 结构伪类 / 属性选择器</p>
+                <div class="footer-row"><span class="num">011</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第五周Flex左图右文.html"
+               style="--outline-color:#c77dff; --shadow-color: rgba(199,125,255,.4); --tag-bg: rgba(199,125,255,.15); --tag-color:#c77dff; --tag-border:rgba(199,125,255,.3); --enter-color:#c77dff;">
+                <span class="week-tag">WEEK 05</span>
+                <div class="icon-ring">📰</div>
+                <h3>第五周Flex左图右文.html</h3>
+                <p>第五周：Flex 弹性布局 —— 左图右文排列</p>
+                <div class="footer-row"><span class="num">012</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第六周点用背景图片代替.html"
+               style="--outline-color:#ff6ec7; --shadow-color: rgba(255,0,110,.5); --tag-bg: rgba(255,0,110,.15); --tag-color:#ff6ec7; --tag-border:rgba(255,0,110,.4); --enter-color:#ff6ec7;">
+                <span class="week-tag">WEEK 06 ✦</span>
+                <div class="icon-ring">🖱️</div>
+                <h3>第六周点用背景图片代替.html</h3>
+                <p>第六周：使用 background-image 代替列表项图标</p>
+                <div class="footer-row"><span class="num">013</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第七周幻灯片.html"
+               style="--outline-color:#00f5d4; --shadow-color: rgba(0,245,212,.4); --tag-bg: rgba(0,245,212,.15); --tag-color:#00f5d4; --tag-border:rgba(0,245,212,.3); --enter-color:#00f5d4;">
+                <span class="week-tag">WEEK 07</span>
+                <div class="icon-ring">🎞️</div>
+                <h3>第七周幻灯片.html</h3>
+                <p>第七周：CSS 动画实现轮播幻灯片效果</p>
+                <div class="footer-row"><span class="num">014</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="第七周溢出动画.html"
+               style="--outline-color:#00f5d4; --shadow-color: rgba(0,245,212,.4); --tag-bg: rgba(0,245,212,.15); --tag-color:#00f5d4; --tag-border:rgba(0,245,212,.3); --enter-color:#00f5d4;">
+                <span class="week-tag">WEEK 07</span>
+                <div class="icon-ring">💫</div>
+                <h3>第七周溢出动画.html</h3>
+                <p>第七周：overflow 溢出隐藏 + CSS 动画综合运用</p>
+                <div class="footer-row"><span class="num">015</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="Flex视频墙.html"
+               style="--outline-color:#ff9f1c; --shadow-color: rgba(255,159,28,.4); --tag-bg: rgba(255,159,28,.15); --tag-color:#ff9f1c; --tag-border:rgba(255,159,28,.3); --enter-color:#ff9f1c;">
+                <span class="week-tag">BONUS</span>
+                <div class="icon-ring">🎬</div>
+                <h3>Flex视频墙.html</h3>
+                <p>综合练习：Flex 布局实现视频墙展示</p>
+                <div class="footer-row"><span class="num">016</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="项目一-网页元素设计/index.html"
+               style="--outline-color:#8338ec; --shadow-color: rgba(131,56,236,.6); --tag-bg: linear-gradient(135deg, rgba(255,0,110,.2), rgba(131,56,236,.2)); --tag-color:#fff; --tag-border:rgba(255,255,255,.3); --enter-color:#fff;">
+                <span class="week-tag">★ PROJECT 01</span>
+                <div class="icon-ring">🧵</div>
+                <h3>网页元素设计</h3>
+                <p>实验一：上图下文 / 左图右文 / 一左一右 · 拾衣纪服装电商</p>
+                <div class="footer-row"><span class="num">017</span><span class="enter">ENTER →</span></div>
+            </a>
+
+            <a class="card" href="项目二-图像解决方案/index.html"
+               style="--outline-color:#00f5d4; --shadow-color: rgba(0,245,212,.45); --tag-bg: rgba(0,245,212,.15); --tag-color:#00f5d4; --tag-border:rgba(0,245,212,.3); --enter-color:#00f5d4;">
+                <span class="week-tag">★ PROJECT 02</span>
+                <div class="icon-ring">🧭</div>
+                <h3>图像解决方案</h3>
+                <p>实验二：自绘 SVG 图标集 + 自适应宽度固定下导航</p>
+                <div class="footer-row"><span class="num">018</span><span class="enter">ENTER →</span></div>
+            </a>
+        </div>
+
+        <div class="prompt-box">
+            <h2>📌 使用与提交说明 <span class="tag">LINKS</span></h2>
+            <p>
+                本页是 408 班 24001010408 宋纪雨溪本学期《高级网页设计》的全部作品目录。
+                每一张卡片都是一个超链接，点击即可打开对应的 HTML 页面；页面顶部与底部也放了「返回目录」与「下一篇」的链接。
+                提交作业时，把整个 0408_sjyx 文件夹上传到 Gitee 或 GitHub 并开启 Pages，
+                将本页（index.html）的在线地址提交到智慧平台，老师打开链接就能逐个查看所有周次的代码与两个实验项目。
+            </p>
+        </div>
+
+        <footer>
+            © 2026 · ADVANCED WEB DESIGN · <span>SONG JIYUXI</span> · ALL 18 WORKS
+        </footer>
+    </div>
+</body>
+</html>

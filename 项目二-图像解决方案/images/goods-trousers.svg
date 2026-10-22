@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="炭灰色直筒长裤商品图">
+  <defs>
+    <linearGradient id="bgTrou" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eeeae7"/><stop offset="1" stop-color="#e0dbd8"/>
+    </linearGradient>
+    <linearGradient id="clothTrou" x1="0.2" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#4b505c"/><stop offset="1" stop-color="#343945"/>
+    </linearGradient>
+    <filter id="blurTrou" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bgTrou)"/>
+  <rect x="120" y="140" width="560" height="720" rx="280" fill="#e8e3e0"/>
+  <ellipse cx="400" cy="880" rx="200" ry="28" fill="#2c2f38" opacity="0.12" filter="url(#blurTrou)"/>
+  <g>
+    <path d="M318 320h164v86l24 118-4 356h-74l-24-330-4 0-8 330h-78l-14-356 22-118z"
+          fill="url(#clothTrou)" stroke="#2b2f3a" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="318" y="300" width="164" height="44" rx="6" fill="#3f4450" stroke="#2b2f3a" stroke-width="4"/>
+    <path d="M400 330v60" stroke="#2b2f3a" stroke-width="5"/>
+    <g fill="#8b8f99">
+      <rect x="352" y="306" width="10" height="30" rx="4"/><rect x="438" y="306" width="10" height="30" rx="4"/>
+    </g>
+    <path d="M362 470c4 120 2 250-6 350M438 470c-2 120 0 250 8 350" fill="none" stroke="#565c69" stroke-width="3"/>
+    <path d="M332 420h136" stroke="#565c69" stroke-width="3" opacity="0.8"/>
+    <path d="M374 860h42M410 860h42" stroke="#262a33" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>

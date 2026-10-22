@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 第四周Flex自适应宽度</title>
+    <link rel="stylesheet" href="./css/pub.css">
+    <style>
+        .list{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .list li{
+            width: 25%;
+            margin-left: 1px;
+            flex-grow: 1;
+        }
+        .list li img{
+            width: 100%;
+        }
+        .list li p{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0.4rem;
+            line-height: 0.45rem;
+        }
+    </style>
+    
+</head>
+<body>
+    <ul class="list">
+        <li>
+            <a href="#">
+                <img src="./img/1.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+        <li>
+            <a href="#">
+                <img src="./img/2.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+        <li>
+            <a href="#">
+                <img src="./img/3.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+        <li>
+            <a href="#">
+                <img src="./img/4.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+        <li>
+            <a href="#">
+                <img src="./img/5.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+        <li>
+            <a href="#">
+                <img src="./img/6.jpg" >
+            </a>
+            <p>宋纪雨溪</p>
+        </li>
+
+    </ul>
+</body>
+</html>

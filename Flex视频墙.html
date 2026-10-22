@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 Flex视频墙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: #333;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            color: #2c3e50;
+        }
+
+        .video-wall {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            display: flex;
+            flex-direction: column;
+            width: 280px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .video-cover {
+            position: relative;
+            width: 100%;
+            height: 158px;
+            background: #e0e0e0;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .video-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-cover img {
+            transform: scale(1.08);
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .play-icon::after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 16px solid #ff4d6d;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 4px;
+        }
+
+        .video-card:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: #ff4d6d;
+        }
+
+        .video-card:hover .play-icon::after {
+            border-left-color: #fff;
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .video-info {
+            display: flex;
+            flex-direction: column;
+            padding: 14px 16px 16px;
+            flex: 1;
+            min-height: 90px;
+        }
+
+        .video-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            font-size: 12px;
+            color: #8a9aa9;
+            gap: 8px;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4d6d, #ff9a9e);
+            flex-shrink: 0;
+        }
+
+        .author-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .stats {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .stat-item svg {
+            width: 12px;
+            height: 12px;
+            fill: #8a9aa9;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: zoomIn 0.25s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 22px;
+            line-height: 36px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #ff4d6d;
+            transform: rotate(90deg);
+        }
+
+        .modal-content video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            background: #000;
+        }
+
+        .modal-title {
+            padding: 14px 18px;
+            background: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 1200px) {
+            .video-card {
+                width: calc((100% - 60px) / 3);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .video-card {
+                width: calc((100% - 40px) / 2);
+            }
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 16px;
+            }
+
+            .video-wall {
+                gap: 14px;
+            }
+
+            .video-card {
+                width: 100%;
+            }
+
+            .modal-close {
+                top: -42px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .modal-close:hover {
+                transform: translateX(50%) rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">🎬 热门视频墙</h1>
+
+    <div class="video-wall">
+        <div class="video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="三分钟带你彻底理解 Flex 布局的所有属性和使用场景">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v1/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">12:34</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">三分钟带你彻底理解 Flex 布局的所有属性和使用场景</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">前端小黑</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            12.3w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            3.2k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="【深夜食堂】一碗热腾腾的番茄鸡蛋面，治愈你的所有不开心">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v2/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">08:21</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">【深夜食堂】一碗热腾腾的番茄鸡蛋面，治愈你的所有不开心</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">食光里的小确幸</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            8.7w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            5.6k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-title="从零开始搭建一个现代化的前端工程化项目，包含 Webpack、Babel、ESLint 等完整配置">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v3/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">25:47</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">从零开始搭建一个现代化的前端工程化项目，包含 Webpack、Babel、ESLint 等完整配置</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">代码诗人</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            5.1w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            1.8k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-title="带你云旅游：三分钟看完日本京都的四季美景">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v4/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">05:12</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">带你云旅游：三分钟看完日本京都的四季美景</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">环球旅行家</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            20.6w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            9.9k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-title="健身小白必看：五个动作练出马甲线，在家就能做">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v5/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">18:55</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">健身小白必看：五个动作练出马甲线，在家就能做</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">Fit小姐姐</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            15.8w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            7.4k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-title="猫咪的迷惑行为大赏合集，每天一遍，快乐无限！">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v6/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">03:45</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">猫咪的迷惑行为大赏合集，每天一遍，快乐无限！</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">喵星人日记</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            33.2w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            18.7k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" data-title="React 18 新特性完全解析：并发模式、自动批处理、Suspense 全讲透">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v7/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">42:10</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">React 18 新特性完全解析：并发模式、自动批处理、Suspense 全讲透</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">前端进阶之路</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            6.4w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            2.1k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" data-title="一分钟学会超实用的生活小妙招，让你的生活更便捷">
+            <div class="video-cover">
+                <img src="https://picsum.photos/seed/v8/560/315" alt="封面">
+                <div class="play-icon"></div>
+                <span class="duration">07:28</span>
+            </div>
+            <div class="video-info">
+                <div class="video-title">一分钟学会超实用的生活小妙招，让你的生活更便捷</div>
+                <div class="video-meta">
+                    <div class="author">
+                        <div class="avatar"></div>
+                        <span class="author-name">生活小能手阿花</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            9.9w
+                        </span>
+                        <span class="stat-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            4.5k
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" title="关闭">×</button>
+            <video id="modalVideo" controls preload="metadata"></video>
+            <div class="modal-title" id="modalTitle"></div>
+        </div>
+    </div>
+
+    <script>
+        var cards = document.querySelectorAll('.video-card');
+        var modal = document.getElementById('videoModal');
+        var modalVideo = document.getElementById('modalVideo');
+        var modalTitle = document.getElementById('modalTitle');
+        var modalClose = document.getElementById('modalClose');
+
+        cards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                var src = card.getAttribute('data-video');
+                var title = card.getAttribute('data-title');
+                modalVideo.src = src;
+                modalTitle.textContent = title;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                modalVideo.play();
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modalVideo.pause();
+            modalVideo.removeAttribute('src');
+            modalVideo.load();
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

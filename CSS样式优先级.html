@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS层叠与继承</title>
+    <!-- 内部样式 -->
+    <link rel="stylesheet" href="./css/outer.css">
+    <style>
+        /* ID选择器 */
+        #box{
+            background-color: rgb(28, 190, 50);
+        }
+        /* 后代选择器 */
+        #box #h2{
+            color: blueviolet;            
+        }
+        #box h2{
+            color: #6bcee1;
+        }
+        #h2{
+            color: rgb(211, 121, 47);
+        }
+        /* Class选择器*/
+        .h2{
+            color: blue;
+        }
+        .h2{
+            color: rgb(237, 23, 151);
+        }
+        /* 标签选择器 */
+        h2{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 当样式(css属性))冲突的时候，涉及到优先级 -->
+    <!-- 1. 越具体越优先内嵌样式>后代选择器>ID选择器>class选择器>标签选择器 -->
+    <div id="box">
+       <h2>层叠与继承</h2>
+       <!-- <h2 id="h2" class="h2" style="color: rgb(237, 23, 151);">这是什么颜色？</h2> -->
+       <h2 id="h2" class="h2">这是什么颜色？</h2>
+    </div>
+  
+</body>
+</html>

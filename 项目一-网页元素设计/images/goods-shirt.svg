@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="米白色亚麻衬衫商品图">
+  <defs>
+    <linearGradient id="bgShirt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4efe6"/><stop offset="1" stop-color="#e6ddcf"/>
+    </linearGradient>
+    <linearGradient id="clothShirt" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#fdfbf5"/><stop offset="1" stop-color="#e8dfcf"/>
+    </linearGradient>
+    <filter id="blurShirt" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bgShirt)"/>
+  <path d="M165 1000V430a235 235 0 0 1 470 0v570z" fill="#efe8db"/>
+  <ellipse cx="400" cy="872" rx="205" ry="30" fill="#4a4033" opacity="0.10" filter="url(#blurShirt)"/>
+  <g fill="none" stroke="#a2937d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M400 246v-34a26 26 0 1 1 26-26"/>
+    <path d="M400 246 272 338h256z"/>
+  </g>
+  <g>
+    <path d="M330 340 246 380 202 560l60 26 40-112-4 336h208l-2-336 40 112 60-26-44-180-84-40z"
+          fill="url(#clothShirt)" stroke="#d4c9b6" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M360 340 400 386 440 340 422 318 400 344 378 318z" fill="#f7f2e6" stroke="#d4c9b6" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M300 786h200" stroke="#d9cebc" stroke-width="5"/>
+    <path d="M400 386v392" stroke="#ddd2c0" stroke-width="3" opacity="0.8"/>
+    <path d="M352 402c-8 86-10 180-6 268M448 402c8 86 10 180 6 268" stroke="#ded3c1" stroke-width="3" opacity="0.8"/>
+    <rect x="432" y="446" width="58" height="76" rx="9" fill="none" stroke="#d4c9b6" stroke-width="4"/>
+    <g fill="#c7bba7">
+      <circle cx="400" cy="438" r="6"/><circle cx="400" cy="500" r="6"/>
+      <circle cx="400" cy="562" r="6"/><circle cx="400" cy="624" r="6"/>
+    </g>
+    <path d="M260 372 286 452M540 372 514 452" stroke="#ded3c1" stroke-width="3" opacity="0.9"/>
+  </g>
+</svg>

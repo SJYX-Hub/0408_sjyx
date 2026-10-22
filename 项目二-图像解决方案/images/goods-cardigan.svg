@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="鼠尾草绿针织开衫商品图">
+  <defs>
+    <linearGradient id="bgCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eceee7"/><stop offset="1" stop-color="#dfe3d9"/>
+    </linearGradient>
+    <linearGradient id="clothCard" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#9aa88f"/><stop offset="1" stop-color="#7f8f76"/>
+    </linearGradient>
+    <filter id="blurCard" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bgCard)"/>
+  <circle cx="400" cy="470" r="300" fill="#e4e8dd"/>
+  <ellipse cx="400" cy="872" rx="210" ry="30" fill="#33402f" opacity="0.12" filter="url(#blurCard)"/>
+  <g fill="none" stroke="#8d9883" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M400 250v-36a26 26 0 1 1 26-26"/>
+    <path d="M400 250 268 342h264z"/>
+  </g>
+  <g>
+    <path d="M330 344 244 384 204 560l58 24 42-110-6 334h98l8-280 8 280h96l-6-334 42 110 58-24-40-176-86-40-20 78-12 58-52 0-12-58z"
+          fill="url(#clothCard)" stroke="#72826a" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M338 344 400 480 462 344 440 330 400 420 360 330z" fill="#8fa084" stroke="#72826a" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M400 480v412" stroke="#6d7d65" stroke-width="5"/>
+    <g stroke="#8fa084" stroke-width="3" opacity="0.85">
+      <path d="M330 792h140M330 806h140M330 820h140"/>
+      <path d="M262 560l14 12M540 560l-14 12"/>
+    </g>
+    <g fill="#e9e3d4" stroke="#6d7d65" stroke-width="3">
+      <circle cx="400" cy="520" r="9"/><circle cx="400" cy="590" r="9"/>
+      <circle cx="400" cy="660" r="9"/><circle cx="400" cy="730" r="9"/>
+    </g>
+    <path d="M318 430c6 110 8 230 4 340M482 430c-6 110-8 230-4 340" fill="none" stroke="#8fa084" stroke-width="3" opacity="0.9"/>
+    <rect x="336" y="620" width="52" height="64" rx="6" fill="none" stroke="#72826a" stroke-width="3"/>
+  </g>
+</svg>

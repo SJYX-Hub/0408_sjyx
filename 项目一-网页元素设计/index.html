@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="24001010408 宋纪雨溪">
+    <meta name="description" content="高级网页设计I 实验一 网页元素设计：拾衣纪服装电商的三个典型网页元素">
+    <title>24001010408 宋纪雨溪 网页元素设计 · 拾衣纪</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="top">
+
+    <!-- ========== 页头：品牌 + 锚点导航 + 购物袋 ========== -->
+    <header class="sjyx-header">
+        <div class="sjyx-container sjyx-header__inner">
+            <a class="sjyx-brand" href="../index.html" title="返回作品目录">
+                <svg class="sjyx-brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+                    <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M15 17h18l-2.5 16h-13z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M19 17c0-4 2.2-7 5-7s5 3 5 7" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="sjyx-brand__name">拾衣纪<small>SHIYI STUDIO</small></span>
+            </a>
+
+            <nav class="sjyx-nav" aria-label="主导航">
+                <a href="#new">本季新品</a>
+                <a href="#story">品牌故事</a>
+                <a href="#series">系列</a>
+            </nav>
+
+            <a class="sjyx-bag" href="#new">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 8h12l-1 12H7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+                <span>购物袋</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- ========== 首屏标题区 ========== -->
+        <section class="sjyx-hero">
+            <div class="sjyx-container sjyx-hero__inner">
+                <p class="sjyx-eyebrow">AUTUMN / WINTER 2026 · 拾衣纪</p>
+                <h1>把日常，<br>穿成喜欢的样子。</h1>
+                <p class="sjyx-hero__lead">
+                    从一块面料的触感开始，挑选能穿很多年的基础款。
+                    本季以亚麻、羊毛与有机棉为主角，用克制的颜色和干净的剪裁，
+                    陪你走过通勤、周末与每一次出发。
+                </p>
+                <div class="sjyx-hero__meta">
+                    <span>12 件新品</span>
+                    <span>3 种天然面料</span>
+                    <span>7 天无理由退换</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 网页元素 1：上图下文（商品卡片） ========== -->
+        <section class="sjyx-section" id="new">
+            <div class="sjyx-container">
+                <header class="sjyx-section__head">
+                    <div>
+                        <p class="sjyx-eyebrow">01 / 上图下文</p>
+                        <h2>本季新品</h2>
+                    </div>
+                    <p class="sjyx-section__note">图片在上、信息在下，采用 CSS Grid 自适应排列</p>
+                </header>
+
+                <div class="sjyx-goods">
+                    <article class="sjyx-card">
+                        <figure class="sjyx-card__media">
+                            <img src="images/goods-shirt.svg" alt="云白亚麻衬衫商品图" width="800" height="1000">
+                        </figure>
+                        <div class="sjyx-card__body">
+                            <p class="sjyx-tag">亚麻系列</p>
+                            <h3>云白亚麻衬衫</h3>
+                            <p class="sjyx-card__desc">法国诺曼底亚麻，水洗后更柔软，微宽松落肩版型。</p>
+                            <p class="sjyx-price">¥ 429 <s>¥ 529</s></p>
+                        </div>
+                    </article>
+
+                    <article class="sjyx-card">
+                        <figure class="sjyx-card__media">
+                            <img src="images/goods-cardigan.svg" alt="鼠尾草绿针织开衫商品图" width="800" height="1000">
+                        </figure>
+                        <div class="sjyx-card__body">
+                            <p class="sjyx-tag">羊毛系列</p>
+                            <h3>鼠尾草针织开衫</h3>
+                            <p class="sjyx-card__desc">美利奴羊毛混纺，细密罗纹收边，适合早晚温差。</p>
+                            <p class="sjyx-price">¥ 659 <s>¥ 799</s></p>
+                        </div>
+                    </article>
+
+                    <article class="sjyx-card">
+                        <figure class="sjyx-card__media">
+                            <img src="images/goods-trousers.svg" alt="炭灰直筒长裤商品图" width="800" height="1000">
+                        </figure>
+                        <div class="sjyx-card__body">
+                            <p class="sjyx-tag">通勤系列</p>
+                            <h3>炭灰直筒长裤</h3>
+                            <p class="sjyx-card__desc">高腰九分剪裁，垂坠抗皱面料，一条裤子应对整周。</p>
+                            <p class="sjyx-price">¥ 389</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 网页元素 2：左图右文（品牌故事） ========== -->
+        <section class="sjyx-section sjyx-section--tint" id="story">
+            <div class="sjyx-container sjyx-story">
+                <figure class="sjyx-story__media">
+                    <img src="images/story-atelier.svg" alt="拾衣纪工作室：窗边衣架、面料台与绿植" width="1200" height="900">
+                    <figcaption>工作室 · 午后四点的光</figcaption>
+                </figure>
+                <div class="sjyx-story__text">
+                    <p class="sjyx-eyebrow">02 / 左图右文</p>
+                    <h2>一件衣服，<br>从面料开始被认真对待。</h2>
+                    <p>
+                        我们与江浙的小型织造工坊长期合作，每季只做少量。
+                        面料进厂后先做缩水与色牢度测试，再交给版师打样三次，
+                        确认肩线、袖长和活动量都舒服，才进入大货生产。
+                    </p>
+                    <p>
+                        拾衣纪不追逐快速更替的流行，而是把预算放在看得见的细节里：
+                        包边、扣眼、备用扣，以及可以被反复修补的缝份。
+                    </p>
+                    <ul class="sjyx-facts">
+                        <li><strong>3 次</strong><span>打样确认</span></li>
+                        <li><strong>6 家</strong><span>长期合作工坊</span></li>
+                        <li><strong>0 件</strong><span>过度包装</span></li>
+                    </ul>
+                    <a class="sjyx-link" href="#series">看看本季两个系列 <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 网页元素 3：一左一右（双系列入口） ========== -->
+        <section class="sjyx-section" id="series">
+            <div class="sjyx-container">
+                <header class="sjyx-section__head">
+                    <div>
+                        <p class="sjyx-eyebrow">03 / 一左一右</p>
+                        <h2>两种生活，一样自在</h2>
+                    </div>
+                    <p class="sjyx-section__note">左右等分，用 Grid 两列实现，窄屏自动改为上下排列</p>
+                </header>
+
+                <div class="sjyx-duo">
+                    <a class="sjyx-duo__item" href="#new">
+                        <img src="images/duo-commute.svg" alt="通勤系列：驼色风衣与托特包" width="900" height="1100">
+                        <div class="sjyx-duo__overlay">
+                            <p>WORKDAY</p>
+                            <h3>轻盈通勤</h3>
+                            <span>风衣 · 衬衫 · 直筒裤 <b>查看 8 件 →</b></span>
+                        </div>
+                    </a>
+
+                    <a class="sjyx-duo__item" href="#new">
+                        <img src="images/duo-weekend.svg" alt="周末系列：焦糖色轻羽绒与棒球帽" width="900" height="1100">
+                        <div class="sjyx-duo__overlay">
+                            <p>WEEKEND</p>
+                            <h3>周末机能</h3>
+                            <span>轻羽绒 · 卫衣 · 棒球帽 <b>查看 6 件 →</b></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== 页脚：署名与返回目录 ========== -->
+    <footer class="sjyx-footer">
+        <div class="sjyx-container sjyx-footer__inner">
+            <p class="sjyx-footer__brand">拾衣纪 <span>SHIYI STUDIO</span></p>
+            <p class="sjyx-footer__info">
+                高级网页设计 I · 实验一 网页元素设计 · 408 班 24001010408 宋纪雨溪
+            </p>
+            <p class="sjyx-footer__links">
+                <a href="#top">回到顶部</a>
+                <a href="../index.html">作品目录</a>
+                <a href="../项目二-图像解决方案/index.html">下一个实验</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

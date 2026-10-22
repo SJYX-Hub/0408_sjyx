@@ -1,0 +1,703 @@
+/* ============================================================
+   拾衣纪 SHIYI STUDIO — 网页元素设计
+   高级网页设计 I · 实验一
+   408 班 24001010408 宋纪雨溪
+   结构：全局公共 CSS → 页头 → 首屏 → 三个网页元素 → 页脚
+   ============================================================ */
+
+/* ---------- 1. 全局公共 CSS：变量与重置 ---------- */
+:root {
+    --sjyx-paper: #f7f4ee;
+    --sjyx-paper-deep: #efe9df;
+    --sjyx-ink: #211f1c;
+    --sjyx-ink-soft: #57524a;
+    --sjyx-muted: #8a8378;
+    --sjyx-line: #ddd4c6;
+    --sjyx-accent: #a9532f;
+    --sjyx-accent-deep: #84401f;
+    --sjyx-serif: "Songti SC", "STSong", "SimSun", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+    --sjyx-sans: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
+    --sjyx-container: 1180px;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--sjyx-sans);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--sjyx-ink);
+    background-color: var(--sjyx-paper);
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--sjyx-serif);
+    font-weight: 600;
+    line-height: 1.24;
+    letter-spacing: 0.01em;
+}
+
+s {
+    color: var(--sjyx-muted);
+    font-size: 0.82em;
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--sjyx-accent);
+    outline-offset: 4px;
+}
+
+.sjyx-container {
+    width: 100%;
+    max-width: var(--sjyx-container);
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.sjyx-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--sjyx-accent);
+}
+
+/* ---------- 2. 页头：Flex 两端对齐 ---------- */
+.sjyx-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: rgba(247, 244, 238, 0.88);
+    border-bottom: 1px solid var(--sjyx-line);
+    backdrop-filter: blur(12px);
+}
+
+.sjyx-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 76px;
+}
+
+.sjyx-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sjyx-brand__mark {
+    width: 40px;
+    height: 40px;
+    color: var(--sjyx-accent);
+    flex: none;
+}
+
+.sjyx-brand__name {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--sjyx-serif);
+    font-size: 21px;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+}
+
+.sjyx-brand__name small {
+    font-family: var(--sjyx-sans);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--sjyx-muted);
+    margin-top: 3px;
+}
+
+.sjyx-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    margin-left: auto;
+}
+
+.sjyx-nav a {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--sjyx-ink-soft);
+    padding: 6px 0;
+}
+
+.sjyx-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--sjyx-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s ease;
+}
+
+.sjyx-nav a:hover {
+    color: var(--sjyx-ink);
+}
+
+.sjyx-nav a:hover::after {
+    transform: scaleX(1);
+}
+
+.sjyx-bag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--sjyx-ink-soft);
+    padding: 9px 16px;
+    border: 1px solid var(--sjyx-line);
+    border-radius: 999px;
+    transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+}
+
+.sjyx-bag svg {
+    width: 18px;
+    height: 18px;
+}
+
+.sjyx-bag:hover {
+    color: var(--sjyx-accent);
+    border-color: var(--sjyx-accent);
+    background-color: rgba(169, 83, 47, 0.05);
+}
+
+/* ---------- 3. 首屏标题区 ---------- */
+.sjyx-hero {
+    padding: 92px 0 76px;
+    border-bottom: 1px solid var(--sjyx-line);
+}
+
+.sjyx-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas:
+        "eyebrow eyebrow"
+        "title   lead"
+        "title   meta";
+    column-gap: 64px;
+    align-items: end;
+}
+
+.sjyx-hero .sjyx-eyebrow {
+    grid-area: eyebrow;
+    margin-bottom: 26px;
+}
+
+.sjyx-hero h1 {
+    grid-area: title;
+    font-size: clamp(42px, 6.2vw, 82px);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.16;
+}
+
+.sjyx-hero__lead {
+    grid-area: lead;
+    max-width: 430px;
+    font-size: 15px;
+    color: var(--sjyx-ink-soft);
+    justify-self: end;
+}
+
+.sjyx-hero__meta {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-self: end;
+    margin-top: 28px;
+}
+
+.sjyx-hero__meta span {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--sjyx-ink-soft);
+    border: 1px solid var(--sjyx-line);
+    border-radius: 999px;
+    padding: 6px 14px;
+}
+
+/* ---------- 4. 区块通用样式 ---------- */
+.sjyx-section {
+    padding: 92px 0;
+}
+
+.sjyx-section--tint {
+    background-color: var(--sjyx-paper-deep);
+}
+
+.sjyx-section__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 26px;
+    margin-bottom: 44px;
+    border-bottom: 1px solid var(--sjyx-line);
+}
+
+.sjyx-section__head h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+.sjyx-section__note {
+    max-width: 330px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--sjyx-muted);
+    text-align: right;
+}
+
+/* ---------- 5. 网页元素 1：上图下文（Grid 商品卡） ---------- */
+.sjyx-goods {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.sjyx-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fffdf8;
+    border: 1px solid var(--sjyx-line);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.sjyx-card:hover {
+    transform: translateY(-6px);
+    border-color: #cbbfae;
+    box-shadow: 0 18px 40px rgba(64, 52, 38, 0.10);
+}
+
+.sjyx-card__media {
+    overflow: hidden;
+    background-color: var(--sjyx-paper-deep);
+}
+
+.sjyx-card__media img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.sjyx-card:hover .sjyx-card__media img {
+    transform: scale(1.035);
+}
+
+.sjyx-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 22px 22px 24px;
+}
+
+.sjyx-tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--sjyx-accent);
+}
+
+.sjyx-card__body h3 {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.sjyx-card__desc {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--sjyx-ink-soft);
+}
+
+.sjyx-price {
+    font-family: var(--sjyx-serif);
+    font-size: 19px;
+    color: var(--sjyx-ink);
+    margin-top: 4px;
+}
+
+/* ---------- 6. 网页元素 2：左图右文（Flex 图文） ---------- */
+.sjyx-story {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+}
+
+.sjyx-story__media {
+    flex: 1 1 54%;
+    min-width: 0;
+}
+
+.sjyx-story__media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.sjyx-story__media figcaption {
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--sjyx-muted);
+}
+
+.sjyx-story__text {
+    flex: 1 1 46%;
+    min-width: 0;
+}
+
+.sjyx-story__text h2 {
+    font-size: clamp(30px, 3.6vw, 44px);
+    font-weight: 500;
+    margin: 14px 0 24px;
+}
+
+.sjyx-story__text > p {
+    font-size: 14.5px;
+    color: var(--sjyx-ink-soft);
+    margin-bottom: 16px;
+}
+
+.sjyx-facts {
+    display: flex;
+    gap: 38px;
+    margin: 30px 0 32px;
+    padding: 22px 0;
+    border-top: 1px solid var(--sjyx-line);
+    border-bottom: 1px solid var(--sjyx-line);
+}
+
+.sjyx-facts li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sjyx-facts strong {
+    font-family: var(--sjyx-serif);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--sjyx-accent);
+}
+
+.sjyx-facts span {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--sjyx-muted);
+}
+
+.sjyx-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--sjyx-ink);
+    border-bottom: 1px solid var(--sjyx-ink);
+    padding-bottom: 6px;
+    transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.sjyx-link:hover {
+    color: var(--sjyx-accent);
+    border-color: var(--sjyx-accent);
+    gap: 16px;
+}
+
+/* ---------- 7. 网页元素 3：一左一右（Grid 双栏） ---------- */
+.sjyx-duo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.sjyx-duo__item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: var(--sjyx-paper-deep);
+}
+
+.sjyx-duo__item img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.sjyx-duo__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 34px;
+    color: #fffdf6;
+    background: linear-gradient(180deg, rgba(24, 20, 16, 0) 42%, rgba(24, 20, 16, 0.68) 100%);
+}
+
+.sjyx-duo__overlay p {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    opacity: 0.82;
+}
+
+.sjyx-duo__overlay h3 {
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 500;
+}
+
+.sjyx-duo__overlay span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    padding-top: 14px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 253, 246, 0.35);
+    opacity: 0.9;
+}
+
+.sjyx-duo__overlay b {
+    font-weight: 400;
+    white-space: nowrap;
+    transition: transform 0.3s ease;
+}
+
+.sjyx-duo__item:hover img {
+    transform: scale(1.045);
+}
+
+.sjyx-duo__item:hover b {
+    transform: translateX(5px);
+}
+
+/* ---------- 8. 页脚 ---------- */
+.sjyx-footer {
+    border-top: 1px solid var(--sjyx-line);
+    background-color: var(--sjyx-paper-deep);
+    padding: 46px 0;
+}
+
+.sjyx-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    flex-wrap: wrap;
+}
+
+.sjyx-footer__brand {
+    font-family: var(--sjyx-serif);
+    font-size: 18px;
+    letter-spacing: 0.16em;
+}
+
+.sjyx-footer__brand span {
+    font-family: var(--sjyx-sans);
+    font-size: 9px;
+    letter-spacing: 0.26em;
+    color: var(--sjyx-muted);
+    margin-left: 8px;
+}
+
+.sjyx-footer__info {
+    font-size: 12.5px;
+    color: var(--sjyx-muted);
+}
+
+.sjyx-footer__links {
+    display: flex;
+    gap: 22px;
+    font-size: 12.5px;
+}
+
+.sjyx-footer__links a {
+    color: var(--sjyx-ink-soft);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+}
+
+.sjyx-footer__links a:hover {
+    color: var(--sjyx-accent);
+    border-color: var(--sjyx-accent);
+}
+
+/* ---------- 9. 响应式：多视口适配 ---------- */
+@media (max-width: 980px) {
+    .sjyx-hero {
+        padding: 68px 0 56px;
+    }
+
+    .sjyx-hero__inner {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "eyebrow"
+            "title"
+            "lead"
+            "meta";
+        row-gap: 22px;
+    }
+
+    .sjyx-hero__lead,
+    .sjyx-hero__meta {
+        justify-self: start;
+    }
+
+    .sjyx-goods {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sjyx-story {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 36px;
+    }
+
+    .sjyx-section {
+        padding: 72px 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .sjyx-container {
+        padding: 0 20px;
+    }
+
+    .sjyx-header__inner {
+        min-height: 64px;
+        gap: 12px;
+    }
+
+    .sjyx-brand__name {
+        font-size: 18px;
+    }
+
+    .sjyx-brand__name small {
+        display: none;
+    }
+
+    .sjyx-nav {
+        gap: 16px;
+    }
+
+    .sjyx-nav a {
+        font-size: 12.5px;
+    }
+
+    .sjyx-bag span {
+        display: none;
+    }
+
+    .sjyx-bag {
+        padding: 9px 11px;
+    }
+
+    .sjyx-hero {
+        padding: 52px 0 46px;
+    }
+
+    .sjyx-hero h1 {
+        font-size: clamp(34px, 10vw, 46px);
+    }
+
+    .sjyx-section {
+        padding: 56px 0;
+    }
+
+    .sjyx-section__head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .sjyx-section__note {
+        text-align: left;
+    }
+
+    .sjyx-goods {
+        grid-template-columns: 1fr;
+    }
+
+    .sjyx-duo {
+        grid-template-columns: 1fr;
+    }
+
+    .sjyx-duo__overlay {
+        padding: 24px;
+    }
+
+    .sjyx-facts {
+        gap: 22px;
+    }
+
+    .sjyx-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

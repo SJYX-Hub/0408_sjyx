@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24001010408宋纪雨溪 flex左图右文</title>
+    <link rel="stylesheet" href="./css/pub.css">
+    <style>
+        .box{
+            display: flex;
+            align-items: flex-start;
+            width:15rem;
+            border:1px solid #f20000;
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+        }
+        .box a{
+            margin-right: 10px;
+            margin-left: 10px;
+          }
+        .box img{
+            width:3rem;
+            margin-top: 10px;
+        }
+        .txt{
+            flex-grow: 1;
+            position: relative;
+        }
+        .txt h2{
+            /* rem: 相对于html的大小 */
+            font-size: .5rem;
+            line-height: 1rem;
+            color:#000000;
+        }
+        .txt span{
+            font-size: .25rem;
+            line-height: .5rem;
+            color:#020202;
+        }
+        .txt .time{
+          position: absolute;
+          bottom: 5px;
+          right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <a href="#">
+            <img src="./img/1.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <img src="./img/2.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <img src="./img/3.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <img src="./img/4.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <img src="./img/5.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <img src="./img/6.jpg" alt="">
+        </a>
+        <div class="txt">
+            <h2>宋纪雨溪的标签</h2>
+            <span class="author">作者：宋纪雨溪</span>
+            <span class="time">时间：2026-09-28</span>
+        </div>
+    </div>
+</body>
+</html>

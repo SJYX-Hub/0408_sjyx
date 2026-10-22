@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408 宋纪雨溪 第四周上图下文绝对定位</title>
+    <style>
+        /*全局样式css*/
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        .list{
+            /* 3个li + 左右margin总和，调整容器宽度 */
+            width: 924px;
+            margin: 10px auto;
+            /*设置BFC，清除浮动*/
+            overflow: hidden;
+        }
+        .list li{
+            position: relative;
+            width: 300px;
+            margin: 4px;
+            float: left;
+        }
+        .list img{
+            width: 100%;
+        }
+        .list p{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0,0,0,.5);
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin:0; /* p标签默认有margin，去掉 */
+        }
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>
+            <a href="./第三周CSS布局.html">
+                <img src="./img/4.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+        <li>
+            <a href="./CSS样式优先级.html">
+                <img src="./img/5.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+        <li>
+            <a href="./第二周boxModel.html">
+                <img src="./img/6.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+        <li>
+            <a href="./第三周CSS布局.html">
+                <img src="./img/1.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+        <li>
+            <a href="./第三周CSS布局.html">
+                <img src="./img/2.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+        <li>
+            <a href="./第三周CSS布局.html">
+                <img src="./img/3.jpg" alt="">
+                <p>宋纪雨溪</p>
+            </a>
+        </li>
+    </ul>
+</body>
+</html>

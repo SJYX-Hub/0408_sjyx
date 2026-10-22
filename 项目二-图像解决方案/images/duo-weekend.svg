@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-label="周末系列：焦糖色轻羽绒与棒球帽">
+  <defs>
+    <linearGradient id="bgWk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9d8c8"/><stop offset="1" stop-color="#ddc7b3"/>
+    </linearGradient>
+    <linearGradient id="puffer" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#c26a43"/><stop offset="1" stop-color="#a8542f"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bgWk)"/>
+  <circle cx="450" cy="520" r="330" fill="#f0e1d2"/>
+  <ellipse cx="450" cy="960" rx="240" ry="34" fill="#5a3a28" opacity="0.12"/>
+  <g>
+    <path d="M340 330c0-46 50-80 110-80s110 34 110 80l-14 40H354z" fill="#efe3d2" stroke="#cdb99f" stroke-width="4"/>
+    <path d="M356 330h188" stroke="#cdb99f" stroke-width="4"/>
+  </g>
+  <g>
+    <path d="M380 400 306 442 286 610l54 22 30-88-6 386h172l-4-386 30 88 54-22-20-168-74-42-22 62-22-62z"
+          fill="url(#puffer)" stroke="#94472a" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M380 400 450 486 520 400 494 388 450 446 406 388z" fill="#b35f39" stroke="#94472a" stroke-width="4" stroke-linejoin="round"/>
+    <g stroke="#94472a" stroke-width="4" opacity="0.85">
+      <path d="M316 560h268M310 640h280M308 720h284M306 800h288M306 880h288"/>
+    </g>
+    <path d="M450 486v444" stroke="#8f4428" stroke-width="6"/>
+    <rect x="420" y="500" width="60" height="10" rx="5" fill="#7f3a22"/>
+  </g>
+  <g>
+    <path d="M610 640c40-18 92 6 100 46l6 28-176 6-6-26c-6-28 34-44 76-54z" fill="#efe6d6" stroke="#cdbfa8" stroke-width="4"/>
+    <path d="M540 720h176" stroke="#cdbfa8" stroke-width="8"/>
+  </g>
+  <g>
+    <path d="M240 940c0-16 14-28 36-28h30c22 0 36 12 36 28l-6 34H246z" fill="#f6f0e5" stroke="#d3c6b2" stroke-width="4"/>
+    <path d="M520 940c0-16 14-28 36-28h30c22 0 36 12 36 28l-6 34H526z" fill="#f6f0e5" stroke="#d3c6b2" stroke-width="4"/>
+    <path d="M252 974h108M532 974h108" stroke="#bfae96" stroke-width="6"/>
+    <path d="M282 918h48M562 918h48" stroke="#b9a88e" stroke-width="4"/>
+  </g>
+</svg>

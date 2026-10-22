@@ -1,0 +1,539 @@
+/* ============================================================
+   拾衣纪 SHIYI STUDIO — 图像解决方案
+   高级网页设计 I · 实验二 · 自适应宽度固定下导航
+   408 班 24001010408 宋纪雨溪
+   技术点：内联 SVG symbol + CSS 控制尺寸和颜色 + Flex 等分自适应
+   ============================================================ */
+
+/* ---------- 1. 全局公共 CSS ---------- */
+:root {
+    --sjyx-paper: #f7f4ee;
+    --sjyx-card: #fffdf8;
+    --sjyx-ink: #211f1c;
+    --sjyx-ink-soft: #57524a;
+    --sjyx-muted: #938b7f;
+    --sjyx-line: #e0d7c9;
+    --sjyx-accent: #a9532f;
+    --sjyx-serif: "Songti SC", "STSong", "SimSun", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+    --sjyx-sans: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
+    --sjyx-app-width: 460px;
+    --sjyx-tabbar-height: 62px;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--sjyx-sans);
+    color: var(--sjyx-ink);
+    background-color: #e9e1d4;
+    background-image:
+        radial-gradient(circle at 12% 8%, rgba(169, 83, 47, 0.12), transparent 34%),
+        radial-gradient(circle at 88% 92%, rgba(125, 139, 116, 0.16), transparent 38%);
+    background-attachment: fixed;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--sjyx-serif);
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+:focus-visible {
+    outline: 2px solid var(--sjyx-accent);
+    outline-offset: 3px;
+}
+
+/* 图标精灵本身不占位 */
+.sjyx-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* ---------- 2. 页面与 App 外壳 ---------- */
+.sjyx-page {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.sjyx-app {
+    position: relative;
+    width: 100%;
+    max-width: var(--sjyx-app-width);
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--sjyx-paper);
+    box-shadow: 0 0 60px rgba(66, 52, 36, 0.16);
+}
+
+/* ---------- 3. 顶部品牌栏 ---------- */
+.sjyx-appbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: 58px;
+    padding: 0 16px;
+    background-color: rgba(247, 244, 238, 0.9);
+    border-bottom: 1px solid rgba(224, 215, 201, 0.8);
+    backdrop-filter: blur(12px);
+}
+
+.sjyx-appbar__back,
+.sjyx-appbar__link {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--sjyx-ink-soft);
+    transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+.sjyx-appbar__back svg,
+.sjyx-appbar__link svg {
+    width: 21px;
+    height: 21px;
+}
+
+.sjyx-appbar__back:hover,
+.sjyx-appbar__link:hover {
+    color: var(--sjyx-accent);
+    background-color: rgba(169, 83, 47, 0.08);
+}
+
+.sjyx-appbar__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--sjyx-serif);
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+}
+
+.sjyx-appbar__brand small {
+    font-family: var(--sjyx-sans);
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: var(--sjyx-muted);
+    margin-top: 2px;
+}
+
+/* ---------- 4. 主内容 ---------- */
+.sjyx-main {
+    padding-bottom: calc(var(--sjyx-tabbar-height) + 34px + env(safe-area-inset-bottom, 0px));
+}
+
+/* 首屏横幅 */
+.sjyx-banner {
+    position: relative;
+    margin: 16px 16px 0;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #d9cdbb;
+}
+
+.sjyx-banner img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.sjyx-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(30, 24, 18, 0) 34%, rgba(30, 24, 18, 0.62) 100%);
+}
+
+.sjyx-banner__text {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    z-index: 1;
+    color: #fffdf6;
+}
+
+.sjyx-banner__text p {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    opacity: 0.85;
+}
+
+.sjyx-banner__text h1 {
+    font-size: clamp(26px, 7.4vw, 34px);
+    margin: 8px 0 10px;
+    letter-spacing: 0.04em;
+}
+
+.sjyx-banner__text span {
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    opacity: 0.86;
+}
+
+/* 分类胶囊 */
+.sjyx-chips {
+    display: flex;
+    gap: 8px;
+    padding: 18px 16px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.sjyx-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.sjyx-chips a {
+    flex: none;
+    padding: 7px 15px;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--sjyx-ink-soft);
+    border: 1px solid var(--sjyx-line);
+    border-radius: 999px;
+    transition: all 0.22s ease;
+}
+
+.sjyx-chips a.is-current,
+.sjyx-chips a:hover {
+    color: #fffdf6;
+    background-color: var(--sjyx-ink);
+    border-color: var(--sjyx-ink);
+}
+
+/* 商品列表 */
+.sjyx-list {
+    padding: 18px 16px 8px;
+}
+
+.sjyx-list__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.sjyx-list__head h2 {
+    font-size: 21px;
+}
+
+.sjyx-list__head span {
+    font-size: 11.5px;
+    color: var(--sjyx-muted);
+    letter-spacing: 0.06em;
+}
+
+.sjyx-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.sjyx-item a {
+    display: block;
+}
+
+.sjyx-item img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 3px;
+    background-color: #efe9df;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.sjyx-item a:hover img {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(66, 52, 36, 0.12);
+}
+
+.sjyx-item h3 {
+    font-size: 14px;
+    margin: 9px 0 2px;
+}
+
+.sjyx-item p {
+    font-family: var(--sjyx-serif);
+    font-size: 14px;
+    color: var(--sjyx-accent);
+}
+
+/* ---------- 5. SVG 图标规范展示 ---------- */
+.sjyx-spec {
+    margin: 22px 16px 0;
+    padding: 20px 18px 18px;
+    background-color: var(--sjyx-card);
+    border: 1px solid var(--sjyx-line);
+    border-radius: 4px;
+}
+
+.sjyx-spec__head h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.sjyx-spec__head p {
+    font-size: 11.5px;
+    line-height: 1.65;
+    color: var(--sjyx-muted);
+    margin-bottom: 18px;
+}
+
+.sjyx-spec__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 4px;
+    border-top: 1px dashed var(--sjyx-line);
+}
+
+.sjyx-spec__row figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.sjyx-spec__row figcaption {
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--sjyx-muted);
+    white-space: nowrap;
+}
+
+.sjyx-spec__row--color figcaption {
+    color: var(--sjyx-ink-soft);
+}
+
+/* 关键：SVG 的宽高跟随 font-size，颜色跟随 color */
+.sjyx-spec__icon {
+    width: 1em;
+    height: 1em;
+    color: var(--sjyx-ink-soft);
+}
+
+.sjyx-spec__row--color .sjyx-spec__icon {
+    color: inherit;
+}
+
+.sjyx-status {
+    margin: 14px 16px 0;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--sjyx-muted);
+    text-align: center;
+}
+
+/* ============================================================
+   6. 自适应宽度固定下导航（核心）
+   - position: fixed 固定在视口底部，宽度跟视口走
+   - inner 用 flex，每个项目 flex:1 1 0 等分，窄屏不换行
+   ============================================================ */
+.sjyx-tabbar {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    z-index: 30;
+    width: 100%;
+    max-width: var(--sjyx-app-width);
+    transform: translateX(-50%);
+    background-color: rgba(250, 247, 241, 0.95);
+    border-top: 1px solid rgba(224, 215, 201, 0.9);
+    box-shadow: 0 -6px 24px rgba(66, 52, 36, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.sjyx-tabbar__inner {
+    display: flex;
+    align-items: stretch;
+    height: var(--sjyx-tabbar-height);
+}
+
+.sjyx-tab {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: var(--sjyx-muted);
+    transition: color 0.26s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 选中时顶部的小短线 */
+.sjyx-tab::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 22px;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background-color: transparent;
+    transform: translateX(-50%);
+    transition: background-color 0.26s ease;
+}
+
+.sjyx-tab__icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 27px;
+    border-radius: 999px;
+    transition: background-color 0.26s ease;
+}
+
+.sjyx-tab__icon svg {
+    width: 23px;
+    height: 23px;
+    transition: transform 0.26s ease;
+}
+
+.sjyx-tab__label {
+    max-width: 100%;
+    padding: 0 2px;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.26s ease;
+}
+
+/* 选中态：颜色、底色、图标轻微上浮 */
+.sjyx-tab.is-active,
+.sjyx-tab.is-active:hover {
+    color: var(--sjyx-accent);
+}
+
+.sjyx-tab.is-active::before {
+    background-color: var(--sjyx-accent);
+}
+
+.sjyx-tab.is-active .sjyx-tab__icon {
+    background-color: rgba(169, 83, 47, 0.11);
+}
+
+.sjyx-tab.is-active .sjyx-tab__icon svg {
+    transform: translateY(-1px) scale(1.06);
+}
+
+.sjyx-tab.is-active .sjyx-tab__label {
+    font-weight: 600;
+}
+
+.sjyx-tab:hover {
+    color: var(--sjyx-ink);
+}
+
+.sjyx-tab:active .sjyx-tab__icon svg {
+    transform: scale(0.92);
+}
+
+/* 购物袋角标 */
+.sjyx-tab__badge {
+    position: absolute;
+    top: -2px;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fffdf6;
+    background-color: var(--sjyx-accent);
+    border: 2px solid #faf7f1;
+    border-radius: 999px;
+}
+
+/* ---------- 7. 多视口适配 ---------- */
+@media (max-width: 380px) {
+    .sjyx-tab__icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .sjyx-tab__label {
+        font-size: 10px;
+        letter-spacing: 0.02em;
+    }
+
+    .sjyx-banner__text h1 {
+        font-size: 25px;
+    }
+
+    .sjyx-spec {
+        padding: 16px 12px;
+    }
+}
+
+@media (min-width: 461px) {
+    .sjyx-app {
+        margin: 0 auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

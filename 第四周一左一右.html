@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0408宋纪雨溪 一左一右(绝对定位)</title>
+    <style>
+        div,h2{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        .title{
+            width: 500px;
+            line-height: 50px;
+            border: 1px dashed #ce4444;
+            position: relative;
+            /* 绝对定位的父元素  一定要设置相对定位 使得绝对定位元素的坐标原点在该元素的上方 */
+        }
+        .title a{
+            /*绝对定位元素*/
+            position: absolute;
+            /*坐标*/
+            top: 0;
+            right: 0;
+            font-size: 14px;
+            color: #000;
+        }
+        .title h2{
+            font-size: 16px;
+            color: #474545;;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <a href="./第三周CSS布局.html">更多</a>
+            <h2>宋纪雨溪</h2>
+        </div>
+    </div>
+</body>
+</html>

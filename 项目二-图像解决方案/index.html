@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="author" content="24001010408 宋纪雨溪">
+    <meta name="description" content="高级网页设计I 实验二 图像解决方案：拾衣纪服装电商 App 自适应宽度固定下导航">
+    <title>24001010408 宋纪雨溪 图像解决方案 · 拾衣纪下导航</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SVG 图标精灵：四个自绘图标，24×24 网格、1.7px 圆头描边
+     与同学使用的 iconfont 动物图标完全不同，是本项目的个性化图标集
+     ============================================================ -->
+<svg class="sjyx-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="sjyx-icon-home" viewBox="0 0 24 24">
+        <path d="M4 10.6 12 4l8 6.6V19a1.6 1.6 0 0 1-1.6 1.6h-4.1v-5.5h-4.6v5.5H5.6A1.6 1.6 0 0 1 4 19z"
+              fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+        <path d="M9.5 10.8h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="sjyx-icon-grid" viewBox="0 0 24 24">
+        <rect x="3.8" y="3.8" width="6.6" height="6.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <rect x="13.6" y="3.8" width="6.6" height="6.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <rect x="3.8" y="13.6" width="6.6" height="6.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <rect x="13.6" y="13.6" width="6.6" height="6.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    </symbol>
+
+    <symbol id="sjyx-icon-bag" viewBox="0 0 24 24">
+        <path d="M5.2 8h13.6l-1.1 12H6.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+        <path d="M9 8V6.4a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M9.2 12.4h5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="1.2 2.2"/>
+    </symbol>
+
+    <symbol id="sjyx-icon-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <path d="M4.9 20c.5-4.1 3.3-6.2 7.1-6.2s6.6 2.1 7.1 6.2"
+              fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+</svg>
+
+<div class="sjyx-page">
+    <!-- ========== App 外壳：最大宽度 460px，模拟移动端 ========== -->
+    <div class="sjyx-app" id="home">
+
+        <!-- 顶部品牌栏 -->
+        <header class="sjyx-appbar">
+            <a class="sjyx-appbar__back" href="../项目一-网页元素设计/index.html" aria-label="返回上一个实验">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14.5 5 8 12l6.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <p class="sjyx-appbar__brand">拾衣纪<small>SHIYI STUDIO</small></p>
+            <a class="sjyx-appbar__link" href="../index.html" aria-label="返回作品目录">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </a>
+        </header>
+
+        <main class="sjyx-main">
+
+            <!-- 首屏横幅 -->
+            <section class="sjyx-banner">
+                <img src="images/duo-commute.svg" alt="秋季通勤系列：驼色风衣" width="900" height="1100">
+                <div class="sjyx-banner__text">
+                    <p>AW 2026 · 新季系列</p>
+                    <h1>秋天，<br>从一件风衣开始</h1>
+                    <span>全场第二件 8 折 · 会员免运费</span>
+                </div>
+            </section>
+
+            <!-- 分类胶囊 -->
+            <nav class="sjyx-chips" aria-label="商品分类">
+                <a class="is-current" href="#home">全部</a>
+                <a href="#home">上装</a>
+                <a href="#home">下装</a>
+                <a href="#home">外套</a>
+                <a href="#home">配饰</a>
+            </nav>
+
+            <!-- 商品列表：复用实验一的 SVG 商品图 -->
+            <section class="sjyx-list" aria-labelledby="newTitle">
+                <header class="sjyx-list__head">
+                    <h2 id="newTitle">为你挑选</h2>
+                    <span>共 12 件</span>
+                </header>
+
+                <div class="sjyx-grid">
+                    <article class="sjyx-item">
+                        <a href="#home">
+                            <img src="images/goods-shirt.svg" alt="云白亚麻衬衫" width="800" height="1000">
+                            <h3>云白亚麻衬衫</h3>
+                            <p>¥ 429</p>
+                        </a>
+                    </article>
+                    <article class="sjyx-item">
+                        <a href="#home">
+                            <img src="images/goods-cardigan.svg" alt="鼠尾草针织开衫" width="800" height="1000">
+                            <h3>鼠尾草针织开衫</h3>
+                            <p>¥ 659</p>
+                        </a>
+                    </article>
+                    <article class="sjyx-item">
+                        <a href="#home">
+                            <img src="images/goods-trousers.svg" alt="炭灰直筒长裤" width="800" height="1000">
+                            <h3>炭灰直筒长裤</h3>
+                            <p>¥ 389</p>
+                        </a>
+                    </article>
+                    <article class="sjyx-item">
+                        <a href="#home">
+                            <img src="images/duo-weekend.svg" alt="焦糖色轻羽绒" width="900" height="1100">
+                            <h3>焦糖轻羽绒</h3>
+                            <p>¥ 899</p>
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 图标规范：展示 SVG 的尺寸与颜色都由 CSS 控制 -->
+            <section class="sjyx-spec" aria-labelledby="specTitle">
+                <header class="sjyx-spec__head">
+                    <h2 id="specTitle">本项目的 SVG 图标</h2>
+                    <p>同一组 symbol，用 CSS 改 font-size / color 就能换尺寸和颜色</p>
+                </header>
+
+                <div class="sjyx-spec__row">
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:20px"><use href="#sjyx-icon-home"></use></svg>
+                        <figcaption>20px</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:28px"><use href="#sjyx-icon-grid"></use></svg>
+                        <figcaption>28px</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:36px"><use href="#sjyx-icon-bag"></use></svg>
+                        <figcaption>36px</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:44px"><use href="#sjyx-icon-user"></use></svg>
+                        <figcaption>44px</figcaption>
+                    </figure>
+                </div>
+
+                <div class="sjyx-spec__row sjyx-spec__row--color">
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:30px;color:#a9532f"><use href="#sjyx-icon-home"></use></svg>
+                        <figcaption>陶土红</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:30px;color:#7d8b74"><use href="#sjyx-icon-grid"></use></svg>
+                        <figcaption>鼠尾草绿</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:30px;color:#3f4450"><use href="#sjyx-icon-bag"></use></svg>
+                        <figcaption>炭灰</figcaption>
+                    </figure>
+                    <figure>
+                        <svg class="sjyx-spec__icon" style="font-size:30px;color:#c2a274"><use href="#sjyx-icon-user"></use></svg>
+                        <figcaption>燕麦色</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <p class="sjyx-status" id="status" aria-live="polite">当前页：首页</p>
+        </main>
+
+        <!-- ========== 核心：自适应宽度固定下导航 ========== -->
+        <nav class="sjyx-tabbar" aria-label="底部导航">
+            <div class="sjyx-tabbar__inner">
+                <a class="sjyx-tab is-active" href="#home" data-page="首页" aria-current="page">
+                    <span class="sjyx-tab__icon">
+                        <svg aria-hidden="true"><use href="#sjyx-icon-home"></use></svg>
+                    </span>
+                    <span class="sjyx-tab__label">首页</span>
+                </a>
+
+                <a class="sjyx-tab" href="#home" data-page="分类">
+                    <span class="sjyx-tab__icon">
+                        <svg aria-hidden="true"><use href="#sjyx-icon-grid"></use></svg>
+                    </span>
+                    <span class="sjyx-tab__label">分类</span>
+                </a>
+
+                <a class="sjyx-tab" href="#home" data-page="购物袋">
+                    <span class="sjyx-tab__icon">
+                        <svg aria-hidden="true"><use href="#sjyx-icon-bag"></use></svg>
+                        <span class="sjyx-tab__badge">2</span>
+                    </span>
+                    <span class="sjyx-tab__label">购物袋</span>
+                </a>
+
+                <a class="sjyx-tab" href="#home" data-page="我的">
+                    <span class="sjyx-tab__icon">
+                        <svg aria-hidden="true"><use href="#sjyx-icon-user"></use></svg>
+                    </span>
+                    <span class="sjyx-tab__label">我的</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script>
+    /* 点击下导航：切换高亮，并更新当前页提示 */
+    const tabs = document.querySelectorAll('.sjyx-tab');
+    const status = document.getElementById('status');
+
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            tabs.forEach(function (item) {
+                item.classList.remove('is-active');
+                item.removeAttribute('aria-current');
+            });
+
+            tab.classList.add('is-active');
+            tab.setAttribute('aria-current', 'page');
+            status.textContent = '当前页：' + tab.dataset.page;
+        });
+    });
+</script>
+</body>
+</html>
