@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>408 宋纪雨溪 第八周JavaScript变量提升与数值处理</title>
+</head>
+<body>
+    <script>
+        var student = "宋纪雨溪";   // 本练习的署名变量
+        console.log("练习人：" + student);
+
+        //1.let和var作用域对比
+        {
+            let a = 10;
+            console.log("块内 let a:" + a + "，类型:" + typeof a);   // 输出: 10
+            var b = 20;
+            console.log("块内 var b:" + b + "，类型:" + typeof b);   // 输出: 20
+        }
+        // let 是块级作用域，出了大括号就访问不到；var 是函数（全局）作用域，外面还能用
+        try {
+            console.log("块外 let a:" + a + "，类型:" + typeof a);
+        } catch (e) {
+            console.log("块外访问 let a 报错：" + e.message);   // ReferenceError: a is not defined
+        }
+        console.log("块外 var b:" + b + "，类型:" + typeof b);   // 输出: 20
+
+        //2.变量提升
+        console.log("变量提升的使用(var存在变量提升)：");
+        console.log("变量c:" + c + "，类型:" + typeof c);         // 输出: undefined（已提升，但还没赋值）
+        var c = 30;
+        // let 不存在变量提升，声明之前访问会进入“暂时性死区”，直接报错
+        try {
+            console.log("变量d:" + d);
+        } catch (e) {
+            console.log("let 声明前访问 d 报错：" + e.message);   // ReferenceError: Cannot access 'd' before initialization
+        }
+        let d = 40;
+        console.log("变量d:" + d + "，类型:" + typeof d);         // 输出: 40
+
+        c = b + d;
+        console.log("c = b + d：" + c);                          // 20 + 40 = 60
+
+        //3.数值处理的使用
+        console.log("数值处理的使用：");
+        var numl = "123.45";
+        console.log("parseInt(numl)：" + parseInt(numl) + "，类型:" + typeof parseInt(numl));   // 123，取整
+        console.log("parseFloat(numl)：" + parseFloat(numl));                                  // 123.45
+        console.log("parseInt(numl) + 100：" + (parseInt(numl) + 100));                        // 223
+        console.log(parseInt("123abc"));       // 123，从左往右取到不能取为止
+        console.log(parseInt("abc123"));       // NaN，第一个字符就不是数字
+        console.log(parseInt("123.45abc"));    // 123，遇到小数点停止
+        //4.判断是否为整数
+        console.log("parseInt(c) === parseFloat(c)：" + (parseInt(c) === parseFloat(c)));   // true
+        console.log("Number.isInteger(c)：" + Number.isInteger(c));                        // true
+        //5.toFixed()方法
+        console.log("3.33333.toFixed(2)：" + 3.33333.toFixed(2));   // "3.33"
+        console.log("123.456.toFixed(1)：" + (123.456).toFixed(1));  // "123.5"
+    </script>
+</body>
+</html>

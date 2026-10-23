@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>408 宋纪雨溪 第八周对象</title>
+    <!-- 对象分三种：
+     1、内置对象：Object、Array、Date、Math
+     2、宿主对象：由宿主环境提供的对象，如浏览器window、document、navigator等
+     3、自定义对象：通过new关键字创建的对象
+ -->
+</head>
+<body>
+    <script>
+        var obj = {
+        sjyxname:"宋纪雨溪",
+        sjyxsno:"24001010408",
+        sjyxage:20,
+        sjyxsex:"女",
+        sjyxheight:165,                // 对象的属性
+        sjyxweight:50,                 // 对象的属性
+        sjyxhobbies:['阅读','听音乐'],   // 对象的属性
+        bir:function(){
+            // var date = new Date();
+            // var year = date.getFullYear();
+            // return year-this.sjyxage;
+            return new Date().getFullYear()-this.sjyxage; // 对象的属性
+        },
+        eat:function(t){
+            console.log(this.sjyxname+" ate at "+t+"o'clock"); // 对象的属性
+        }
+
+    };
+    // 访问对象的属性和方法
+    console.log(obj.sjyxname);
+    console.log(obj["sjyxname"]);
+    console.log(obj.bir());
+    // 修改对象的属性
+    obj.sjyxage=23;
+    console.log(obj.sjyxage);
+    //删除对象的属性
+    console.log(obj.sjyxsno);
+    delete obj.sjyxsno;
+    console.log(obj.sjyxsno); // 输出: undefined
+    //调用方法
+    obj.eat(12); // 输出: 宋纪雨溪 ate at 12o'clock
+    // 遍历对象的属性
+    for (var key in obj) {
+        //console.log(key + " : " + obj[key]);
+        console.log(key); // 输出: sjyxname,sjyxage,sjyxsex,sjyxheight,sjyxweight,sjyxhobbies,bir,eat
+        console.log(obj[key]); // 输出: 宋纪雨溪,23,女,165,50,数组,function(){...},function(){...}
+    }
+    // 判断对象是否有某个属性
+    console.log("sjyxname" in obj); // 输出: true
+    console.log("sjyxsno" in obj); // 输出: false（上面已经 delete 掉了）
+    console.log(obj.hasOwnProperty("sjyxname")); // 输出: true,判断对象自身是否包含某个属性
+
+    </script>
+
+</body>
+</html>

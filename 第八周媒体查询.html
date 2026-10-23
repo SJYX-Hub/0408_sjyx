@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>408 宋纪雨溪 第八周媒体查询</title>
+    <style>
+        div,h2{
+            margin: 0;
+            padding: 0;
+        }
+        body,html,#box{
+            height: 100%;
+        }
+        #box{
+            background-color: pink;
+            color: #2b9943;
+            font-size: 100px;
+            text-align: center;
+        }
+        html{
+            font-size: 5.6vw;
+        }
+        #box>h2{
+            font-size: 1.5rem;
+            line-height: 3rem;
+            text-shadow: .5rem .5rem 1rem #2b9943;
+            padding: .5rem .6rem;
+        }
+        /* 宽屏：粉色背景 + 绿色文字 */
+        @media screen and (max-width: 1200px){
+            #box{
+                background-color: blueviolet;
+            }
+            #box>h2{
+                color: #95bb49;
+            }
+        }
+        /* 平板、手机：换成更深的底色 */
+        @media screen and (max-width: 768px){
+            #box{
+                background-color: rgb(92, 95, 179);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h2>宋纪雨溪 媒体查询</h2>
+        <h2>学号 24001010408</h2>
+    </div>
+</body>
+</html>
