@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-10-29 宋纪雨溪 数组方法进阶</title>
+</head>
+<body>
+    <script>
+        var arr = [35, 67, 88, 76, 56, 90, 89, 97, 100, 12]
+
+        // every：判断数组的所有成员是否满足条件
+        const n = arr.every(function(v, i) {
+            return v > 60
+        })
+        console.log(n)
+
+        // some：判断数组中是否有成员满足条件
+        const n1 = arr.some(function(v, i) {
+            return v > 60
+        })
+        console.log(n1)
+
+        // map：映射数组
+        const n2 = arr.map(function(v, i) {
+            v += 5
+            return v
+        })
+        console.log(n2)
+    </script>
+</body>
+</html>

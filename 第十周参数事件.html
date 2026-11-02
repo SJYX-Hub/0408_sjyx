@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <title>20261102 宋纪雨溪 事件参数 </title>
+    <style>
+        #box{
+            height:250px;
+            border:1px solid #222;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" id="input" placeholder="键入回车结束">
+        <h2 id="h2">宋纪雨溪 事件参数</h2>
+    </div>
+
+    <script>
+        // 获取元素
+        var box = document.getElementById("box");
+        var h2 = document.getElementById("h2");
+        var input = document.getElementById("input");
+
+        // 鼠标移动事件
+        box.onmousemove = function(e){
+            h2.innerHTML = e.offsetX + "px," + e.offsetY + "px," + e.clientX + "px," + e.clientY + "px";
+        }
+
+        // 键盘抬起事件 onkeyup，判断回车键 keyCode=13
+        input.onkeyup = function(e){
+            console.log(e.keyCode);
+            if(e.keyCode == 13){
+                alert("你按了回车键");
+            }
+        }
+    </script>
+</body>
+</html>
+7

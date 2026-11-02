@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261102 宋纪雨溪 DOM</title>
+    <style>
+        .list li{
+            width: 160px;
+            height: 160px;
+            line-height: 160px;
+            text-align: center;
+            background-color: aqua;
+            color: red;
+            margin: 10px;
+            font-size: 60px;
+            transition: all .6s;
+        }
+       
+        .clicked{
+            background-color: gold;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- DOM: Document Object Model 文档对象模型-->
+    <button>改变h2的html和css</button>
+    <button>在h2中显示li的nodename和nodeType</button>
+    <button>点击后，点击任意li都可以切换类，包括相邻节点</button>
+    <button>点击后，双击任意li可以将其删除</button>
+    <button>克隆</button>
+    <button>点击后，onmousemove时，li内显示你的名字</button>
+
+    <div id="box">
+        <h2>宋纪雨溪 DOM</h2>
+        <ul class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+
+<script>
+    // 获取dom元素
+    // var box = document.getElementById("box");
+    var box = document.querySelector("#box");
+    // 获取所有的按钮 得到的是array-like对象 类数组
+    var btns = document.getElementsByTagName("button");
+
+    // var h2 = box.getElementsByTagName("h2")[0];
+    var h2 = box.querySelector("h2");
+    var ul = box.querySelector("ul");
+    var li = box.querySelectorAll("li");
+
+    console.log(btns,box,h2,li);
+
+    // ========== 按钮1：改变h2的html和css ==========
+    btns[0].onclick = ()=>{
+        h2.innerHTML = "chenyingyu javaScript";
+        // textContent 只能改变文本内容，不能改变html标签
+        h2.style.cssText = "color: red; font-size: 36px;";
+        h2.style.backgroundColor = "pink";
+        h2.style.setProperty("font-weight","bold");
+    }
+
+    // ========== 按钮2：课件原版，输出nodeName nodeType ==========
+    btns[1].onclick = ()=>{
+        h2.innerHTML = "li的nodename是:" + li[0].nodeName + "<br>li的nodeType是:" + li[0].nodeType;
+    }
+    // nodeType的值：1表示元素节点，2表示属性节点，3表示文本节点
+
+    // ========== 按钮3：课件原版 for循环 + classList.toggle('clicked') ==========
+    btns[2].onclick = ()=>{
+        for(var i = 0 ; i < li.length ; i++){
+            li[i].onclick = function(){
+                // this指向当前点击的li元素
+                this.classList.toggle('clicked');
+            }
+        }
+    }
+
+    // ========== 按钮4：开启双击删除li ==========
+    var flag4 = false;
+    btns[3].onclick = function(){
+        if(flag4) return;
+        flag4 = true;
+        var liList = ul.querySelectorAll("li");
+        for(let i=0;i<liList.length;i++){
+            liList[i].ondblclick = function(){
+                this.remove();
+            }
+        }
+    }
+
+    // ========== 按钮5：克隆最后一个li追加到ul ==========
+    btns[4].onclick = function(){
+        var lastLi = ul.lastElementChild;
+        var cloneLi = lastLi.cloneNode(true);
+        cloneLi.innerText = Number(lastLi.innerText)+1;
+        ul.appendChild(cloneLi);
+    }
+
+    // ========== 按钮6：开启鼠标移动，li显示名字 ==========
+    var flag6 = false;
+    btns[5].onclick = function(){
+        if(flag6) return;
+        flag6 = true;
+        var liList = ul.querySelectorAll("li");
+        for(let i=0;i<liList.length;i++){
+            liList[i].onmousemove = function(){
+                this.innerText = "宋纪雨溪";
+            }
+        }
+    }
+</script>
+</body>
+</html>
