@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261102 宋纪雨溪 手机事件</title>
+    <style>
+        body{ margin: 0; }
+
+        #box{
+            height: 500px;
+            background-color: blue;
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            line-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">宋纪雨溪的手机事件</div>
+
+<script>
+    var box = document.getElementById("box");
+
+    // 定义变量，存储触屏时候的x坐标和y坐标,时间
+    var x, y, t;
+
+    box.ontouchstart=(e)=>{
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+        t = new Date().getTime();
+        box.innerHTML = "您触屏了！";
+    }
+
+    box.ontouchend=(e)=>{
+        var touch = e.changedTouches[0];
+        var x2 = touch.pageX;
+        var y2 = touch.pageY;
+
+        if(x2 > x){
+            box.innerHTML = "您向右滑动了！";
+        }else if(x2 < x){
+            box.innerHTML = "您向左滑动了！";
+        }else if(y2 > y){
+            box.innerHTML = "您向下滑动了！";
+        }else{
+            box.innerHTML = "您向上滑动了！";
+        }
+
+        var t2 = new Date().getTime();
+        if(t2 - t < 300){
+            box.innerHTML = "快滑";
+        }else{
+            box.innerHTML = "慢滑";
+        }
+    }
+</script>
+</body>
+</html>

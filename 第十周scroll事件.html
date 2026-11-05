@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20261102 宋纪雨溪 scroll事件</title>
+    <style>
+        body{ margin: 0; }
+
+        #head{
+            height: 600px;
+            background-color: #eee;
+            font-size: 40px;
+        }
+
+        #fixed{
+            background-color: #f90;
+            height: 100px;
+            position: sticky;
+            top: 0;
+            line-height: 100px;
+            padding-left: 20px;
+            font-size: 30px;
+            color: #fff;
+        }
+
+        #main{
+            height: 3000px;
+            background-color: #ccc;
+        }
+
+        #ad{
+            display: none;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            background-color: #f90;
+            padding: 20px;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div id="head">默认的头部</div>
+    <div id="fixed">滚动固定的盒子</div>
+    <div id="main">主要内容</div>
+    <div id="ad">默认隐藏</div>
+
+<script>
+    var ad = document.getElementById("ad");
+
+    window.onscroll = function(){
+        var top = document.documentElement.scrollTop;
+
+        // 滚过头部就把广告显示出来
+        if(top > 600){
+            ad.style.display = "block";
+        }else{
+            ad.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
