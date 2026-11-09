@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261109 宋纪雨溪 tab选项卡</title>
+    <style>
+        .title{
+            display: flex;
+        }
+        .title span{
+            width: 160px;
+            background-color: #039;
+            color: #fff;
+            text-align: center;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        .title .active{
+            border-top: #fff 1px solid;
+            border-left: #fff 1px solid;
+            border-right: #fff 1px solid;
+            margin-top: -1px;
+        }
+        .tc{
+            border: #ff0 1px solid;
+            height: 300px;
+            line-height: 300px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="title">
+            <span class="active">国际</span>
+            <span>国内</span>
+            <span>大连</span>
+            <span>热点</span>
+        </div>
+        <div class="tc" style="display: block;">1国际新闻</div>
+        <div class="tc">2国内新闻</div>
+        <div class="tc">3大连新闻</div>
+        <div class="tc">4热点新闻</div>
+    </div>
+
+    <script>
+        var tab = document.querySelector(".tab");
+        var title = tab.getElementsByClassName("title")[0];
+        var span = title.getElementsByTagName("span");
+        var tc = tab.getElementsByClassName("tc");
+
+        for(var i = 0; i < span.length; i++){
+            span[i].index = i;
+            span[i].onclick = function(){
+                for(var j = 0; j < span.length; j++){
+                    span[j].className = "";
+                    tc[j].style.display = "none";
+                }
+                this.className = "active";
+                tc[this.index].style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
