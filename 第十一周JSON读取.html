@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261112 宋纪雨溪 JSON数据读取</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+            background: #f4f6fa;
+            color: #1f2430;
+            padding: 36px 20px 60px;
+        }
+
+        .wrap { max-width: 880px; margin: 0 auto; }
+
+        h1 { font-size: 22px; margin-bottom: 6px; }
+        .sub { color: #6b7280; font-size: 13px; }
+        .api {
+            font-size: 12px;
+            color: #039;
+            margin: 6px 0 20px;
+            word-break: break-all;
+        }
+
+        .info {
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+        }
+
+        .info h2 { font-size: 18px; margin-bottom: 10px; }
+        .info .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+        .info .row b { color: #1f2430; font-weight: normal; }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .stat {
+            flex: 1 1 140px;
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .stat .lbl { color: #6b7280; font-size: 12px; margin-bottom: 4px; }
+        .stat .val { font-size: 20px; color: #039; }
+        .stat .val small { font-size: 12px; color: #9ca3af; }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .toolbar button {
+            border: 1px solid #d7dbe4;
+            background: #fff;
+            color: #1f2430;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .toolbar button:hover { border-color: #039; color: #039; }
+        .count { margin-left: auto; color: #6b7280; font-size: 13px; }
+        .count b { color: #039; font-size: 16px; }
+
+        .list { display: grid; gap: 12px; }
+
+        .item {
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            transition: .2s;
+        }
+
+        .item:hover {
+            border-color: #b9c6e6;
+            box-shadow: 0 6px 18px rgba(0, 51, 153, .08);
+        }
+
+        .who { min-width: 150px; }
+        .who .name { font-size: 15px; margin-bottom: 4px; }
+        .who .no { color: #9ca3af; font-size: 12px; }
+
+        .tag {
+            display: inline-block;
+            padding: 1px 8px;
+            border-radius: 4px;
+            background: #eef2ff;
+            color: #039;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+
+        .scores {
+            display: flex;
+            gap: 16px;
+            margin-left: auto;
+            color: #4b5563;
+            font-size: 13px;
+        }
+
+        .scores span b { color: #1f2430; font-weight: 600; }
+
+        .total {
+            min-width: 90px;
+            text-align: right;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .total b { display: block; font-size: 17px; color: #039; }
+
+        .empty { color: #9ca3af; text-align: center; padding: 30px 0; }
+
+        .tip {
+            display: none;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .tip code {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #fed7aa;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>JSON 数据读取</h1>
+        <div class="sub">第十一周课堂练习 · 24001010408 宋纪雨溪</div>
+        <div class="api" id="api"></div>
+
+        <div class="tip" id="tip">
+            读取失败，请先启动 json-server：<br>
+            在项目目录打开终端，执行 <code>json-server database/songjiyuxi.json --port 3000</code><br>
+            启动后刷新本页。
+        </div>
+
+        <div class="info" id="info" style="display: none;"></div>
+        <div class="stats" id="stats"></div>
+
+        <div class="toolbar">
+            <button id="reload">重新读取</button>
+            <span class="count">共 <b id="total">0</b> 名学生</span>
+        </div>
+
+        <div class="list" id="list">
+            <div class="empty">正在读取数据…</div>
+        </div>
+    </div>
+
+    <script>
+        // 接口地址：顶层键 classInfo、students 各对应一个接口
+        var API_INFO = 'http://localhost:3000/classInfo';
+        var API_LIST = 'http://localhost:3000/students';
+        document.getElementById('api').textContent = '数据接口：' + API_INFO + ' 、 ' + API_LIST;
+
+        var listBox = document.getElementById('list');
+        var infoBox = document.getElementById('info');
+        var statsBox = document.getElementById('stats');
+        var totalBox = document.getElementById('total');
+        var tipBox = document.getElementById('tip');
+
+        var students = [];
+
+        // 通用 ajax：拿到文本后 JSON.parse
+        function getJSON(url, ok, fail) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status === 200) {
+                    ok(JSON.parse(xhr.responseText));
+                } else {
+                    fail();
+                }
+            };
+            xhr.onerror = fail;
+            xhr.send();
+        }
+
+        function load() {
+            tipBox.style.display = 'none';
+            infoBox.style.display = 'none';
+            statsBox.innerHTML = '';
+            listBox.innerHTML = '<div class="empty">正在读取数据…</div>';
+
+            getJSON(API_INFO, function (info) {
+                renderInfo(info);
+                getJSON(API_LIST, function (list) {
+                    students = list;
+                    renderStats();
+                    renderList();
+                }, loadLocal);
+            }, loadLocal);
+        }
+
+        // 线上没有 json-server 时，读取同目录下的 json 文件
+        function loadLocal() {
+            getJSON('./database/songjiyuxi.json', function (db) {
+                tipBox.style.display = 'none';
+                renderInfo(db.classInfo);
+                students = db.students;
+                renderStats();
+                renderList();
+            }, showError);
+        }
+
+        function showError() {
+            totalBox.textContent = 0;
+            listBox.innerHTML = '';
+            statsBox.innerHTML = '';
+            tipBox.style.display = 'block';
+        }
+
+        // 班级信息
+        function renderInfo(info) {
+            infoBox.style.display = 'block';
+            infoBox.innerHTML =
+                '<h2>' + info.className + ' · ' + info.subject + '</h2>' +
+                '<div class="row">' +
+                    '<span>任课教师：<b>' + info.teacher + '</b></span>' +
+                    '<span>学年：<b>' + info.year + '</b></span>' +
+                '</div>';
+        }
+
+        // 平均分统计
+        function renderStats() {
+            var html = '';
+            var subjects = ['html', 'css', 'js'];
+            var names = { html: 'HTML', css: 'CSS', js: 'JS' };
+
+            html += '<div class="stat"><div class="lbl">班级人数</div><div class="val">' +
+                students.length + ' <small>人</small></div></div>';
+
+            subjects.forEach(function (key) {
+                var sum = students.reduce(function (acc, s) {
+                    return acc + s.scores[key];
+                }, 0);
+                html += '<div class="stat"><div class="lbl">' + names[key] + ' 平均分</div>' +
+                    '<div class="val">' + (sum / students.length).toFixed(1) + '</div></div>';
+            });
+
+            statsBox.innerHTML = html;
+        }
+
+        // 学生列表
+        function renderList() {
+            totalBox.textContent = students.length;
+            listBox.innerHTML = '';
+
+            students.forEach(function (s) {
+                var total = s.scores.html + s.scores.css + s.scores.js;
+                var avg = (total / 3).toFixed(1);
+
+                var card = document.createElement('div');
+                card.className = 'item';
+                card.innerHTML =
+                    '<div class="who">' +
+                        '<div class="name">' + s.name + '<span class="tag">' + s.gender + '</span></div>' +
+                        '<div class="no">学号 ' + s.no + '</div>' +
+                    '</div>' +
+                    '<div class="scores">' +
+                        '<span>HTML <b>' + s.scores.html + '</b></span>' +
+                        '<span>CSS <b>' + s.scores.css + '</b></span>' +
+                        '<span>JS <b>' + s.scores.js + '</b></span>' +
+                    '</div>' +
+                    '<div class="total">平均分<b>' + avg + '</b></div>';
+                listBox.appendChild(card);
+            });
+        }
+
+        document.getElementById('reload').onclick = load;
+        load();
+    </script>
+</body>
+</html>

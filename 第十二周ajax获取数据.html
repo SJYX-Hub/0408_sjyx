@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261116 宋纪雨溪 ajax获取数据</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", sans-serif; background: #f4f6fa; color: #1f2430; }
+
+        .page { max-width: 1080px; margin: 36px auto 60px; padding: 0 20px; }
+        .page h1 { font-size: 24px; margin-bottom: 10px; }
+        .source { color: #6b7280; font-size: 13px; margin-bottom: 26px; }
+        .source b { color: #2f6fed; font-weight: normal; }
+
+        .ulist {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .ulist li {
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-left: 4px solid #2f6fed;
+            border-radius: 8px;
+            padding: 16px 18px;
+        }
+
+        .li-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 12px;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #e6e8ee;
+        }
+
+        .li-head h3 { font-size: 15px; }
+        .li-head span { font-size: 13px; color: #6b7280; }
+
+        .li-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .li-row b { color: #1f2430; }
+        .li-row.total { border-top: 1px dashed #e6e8ee; margin-top: 6px; padding-top: 10px; }
+        .li-row.total b { color: #2f6fed; font-size: 15px; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>学生成绩数据</h1>
+        <div class="source">数据来源：XMLHttpRequest 异步请求 <b>http://localhost:3000/students</b></div>
+
+        <div class="box">
+            <ul class="ulist">
+            </ul>
+        </div>
+    </div>
+    <script>
+        // 1、创建XMLHttpRequest对象
+        var xhr = new XMLHttpRequest();
+        // 2、打开连接
+        var url = "http://localhost:3000/students"
+        xhr.open('GET', url, true);
+        // 3、发送请求
+        xhr.send();
+        // 4、接收响应
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 5、解析响应数据
+                var data = JSON.parse(xhr.responseText);
+                // 6、渲染数据
+                renderData(data);
+            } else if (xhr.readyState === 4) {
+                // 线上没有 json-server 时，请求同目录下的 json 文件
+                loadLocal();
+            }
+        }
+
+        function loadLocal() {
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open('GET', './database/songjiyuxi.json', true);
+            xhr2.onreadystatechange = function () {
+                if (xhr2.readyState === 4 && xhr2.status === 200) {
+                    var db = JSON.parse(xhr2.responseText);
+                    renderData(db.students);
+                }
+            };
+            xhr2.send();
+        }
+
+        // 7、渲染数据
+        function renderData(jarr) {
+            var ul = document.querySelector('.ulist');
+            jarr.forEach((v, i) => {
+                var li = document.createElement('li');
+                li.innerHTML = `<div class="li-head">
+                        <h3>姓名：${v.name}</h3>
+                        <span>学号：${v.no}</span>
+                    </div>
+                    <div class="li-row"><span>HTML分数</span><b>${v.scores.html}</b></div>
+                    <div class="li-row"><span>CSS分数</span><b>${v.scores.css}</b></div>
+                    <div class="li-row"><span>JavaScript分数</span><b>${v.scores.js}</b></div>
+                    <div class="li-row total"><span>总分</span><b>${v.scores.html + v.scores.css + v.scores.js}</b></div>`;
+                ul.appendChild(li);
+            })
+        }
+    </script>
+</body>
+</html>

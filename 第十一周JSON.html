@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20261112 宋纪雨溪 JSON数据渲染</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+            background: #f4f6fa;
+            color: #1f2430;
+            padding: 36px 20px 60px;
+        }
+
+        .wrap { max-width: 880px; margin: 0 auto; }
+
+        h1 { font-size: 22px; margin-bottom: 6px; }
+        .sub { color: #6b7280; font-size: 13px; margin-bottom: 24px; }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .toolbar button {
+            border: 1px solid #d7dbe4;
+            background: #fff;
+            color: #1f2430;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .toolbar button:hover { border-color: #039; color: #039; }
+        .toolbar button.active {
+            background: #039;
+            border-color: #039;
+            color: #fff;
+        }
+
+        .count { margin-left: auto; color: #6b7280; font-size: 13px; }
+        .count b { color: #039; font-size: 16px; }
+
+        .list { display: grid; gap: 14px; }
+
+        .item {
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-radius: 10px;
+            padding: 16px 18px;
+            transition: .2s;
+        }
+
+        .item:hover {
+            border-color: #b9c6e6;
+            box-shadow: 0 6px 18px rgba(0, 51, 153, .08);
+        }
+
+        .item h2 { font-size: 16px; margin-bottom: 8px; }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            background: #eef2ff;
+            color: #039;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .item p { color: #4b5563; font-size: 13px; line-height: 1.7; }
+
+        .empty { color: #9ca3af; text-align: center; padding: 30px 0; }
+
+        details {
+            margin-top: 28px;
+            background: #fff;
+            border: 1px solid #e6e8ee;
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+
+        summary { cursor: pointer; font-size: 14px; }
+        pre {
+            margin-top: 12px;
+            padding: 14px;
+            background: #0f172a;
+            color: #cbd5e1;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>JSON 数据渲染</h1>
+        <div class="sub">第十一周课堂练习 · 24001010408 宋纪雨溪</div>
+
+        <div class="toolbar" id="toolbar">
+            <span class="count">共 <b id="total">0</b> 条</span>
+        </div>
+
+        <div class="list" id="list"></div>
+
+        <details>
+            <summary>查看原始 JSON 数据</summary>
+            <pre id="raw"></pre>
+        </details>
+    </div>
+
+    <script>
+        // 定义 JSON 数据
+        var jsonStr = '[' +
+            '{"id":1,"title":"图书馆延长开放时间","category":"通知","date":"2026-11-09","author":"教务处","views":1286,' +
+            '"summary":"自本周起，图书馆三楼自习区开放时间延长至 22:30，周末照常开放。"},' +
+            '{"id":2,"title":"校园歌手大赛开始报名","category":"活动","date":"2026-11-10","author":"校团委","views":2431,' +
+            '"summary":"第十届校园歌手大赛报名通道已开启，初赛定于 11 月 20 日在大学生活动中心举行。"},' +
+            '{"id":3,"title":"前端性能优化专题讲座","category":"讲座","date":"2026-11-11","author":"计算机学院","views":876,' +
+            '"summary":"讲座围绕资源加载、渲染阻塞和缓存策略展开，现场演示 Chrome 性能面板的使用。"},' +
+            '{"id":4,"title":"期末考试安排出炉","category":"通知","date":"2026-11-12","author":"教务处","views":3152,' +
+            '"summary":"本学期期末考试安排在 12 月 28 日至 1 月 8 日，具体场次可在教务系统查询。"},' +
+            '{"id":5,"title":"校园马拉松志愿者招募","category":"活动","date":"2026-11-12","author":"青年志愿者协会","views":654,' +
+            '"summary":"需要志愿者 60 名，负责补给、引导和计时，报名后统一培训并发放志愿时长。"}' +
+            ']';
+
+        var newsList = JSON.parse(jsonStr);
+        var listBox = document.getElementById('list');
+        var toolbar = document.getElementById('toolbar');
+        var totalBox = document.getElementById('total');
+
+        document.getElementById('raw').textContent = JSON.stringify(newsList, null, 2);
+
+        // 取出所有分类，拼成筛选按钮
+        var categories = ['全部'];
+        newsList.forEach(function (item) {
+            if (categories.indexOf(item.category) === -1) {
+                categories.push(item.category);
+            }
+        });
+
+        var current = '全部';
+
+        categories.forEach(function (name) {
+            var btn = document.createElement('button');
+            btn.textContent = name;
+            if (name === current) btn.className = 'active';
+            btn.onclick = function () {
+                current = name;
+                var all = toolbar.querySelectorAll('button');
+                for (var i = 0; i < all.length; i++) {
+                    all[i].className = '';
+                }
+                btn.className = 'active';
+                render();
+            };
+            toolbar.insertBefore(btn, toolbar.querySelector('.count'));
+        });
+
+        // 按分类筛选并渲染
+        function render() {
+            var data = newsList.filter(function (item) {
+                return current === '全部' || item.category === current;
+            });
+
+            totalBox.textContent = data.length;
+            listBox.innerHTML = '';
+
+            if (data.length === 0) {
+                listBox.innerHTML = '<div class="empty">该分类下暂无内容</div>';
+                return;
+            }
+
+            data.forEach(function (item) {
+                var card = document.createElement('div');
+                card.className = 'item';
+                card.innerHTML =
+                    '<h2><span class="tag">' + item.category + '</span>' + item.title + '</h2>' +
+                    '<div class="meta">' +
+                        '<span>' + item.date + '</span>' +
+                        '<span>' + item.author + '</span>' +
+                        '<span>阅读 ' + item.views + '</span>' +
+                    '</div>' +
+                    '<p>' + item.summary + '</p>';
+                listBox.appendChild(card);
+            });
+        }
+
+        render();
+    </script>
+</body>
+</html>
