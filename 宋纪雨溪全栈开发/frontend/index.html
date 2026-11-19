@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科技新闻站 · 宋纪雨溪</title>
+<!--
+姓名：宋纪雨溪 | 学号：24001010408 | 时间：2026-11-19 | 大模型：DeepSeek-V3
+-->
+<link rel="stylesheet" href="css/sjyx408_style.css">
+</head>
+<body>
+
+<canvas id="sjyx408_canvas_bg" class="sjyx408_canvas"></canvas>
+
+<div class="sjyx408_page">
+
+  <header class="sjyx408_header">
+    <h1 class="sjyx408_title">科技新闻站</h1>
+    <p class="sjyx408_subtitle">基于 Vibe Coding 的全栈项目 · Node.js + Express + MySQL</p>
+
+    <div class="sjyx408_profile">
+      <div class="sjyx408_profileItem">姓名<span>宋纪雨溪</span></div>
+      <div class="sjyx408_profileItem">学号<span>24001010408</span></div>
+      <div class="sjyx408_profileItem">项目类别<span>自选</span></div>
+      <div class="sjyx408_profileItem">后端端口<span>8325</span></div>
+    </div>
+  </header>
+
+  <h2 class="sjyx408_navTitle">页面导航</h2>
+
+  <nav class="sjyx408_navGrid">
+    <a class="sjyx408_navCard" href="news.html">
+      <div class="sjyx408_navCardName">科技新闻列表</div>
+      <div class="sjyx408_navCardDesc">调用 /api/news 读取 MySQL 里的科技新闻，页面同时显示后端接口地址、返回状态和原始数据。</div>
+      <span class="sjyx408_navCardTag">news.html</span>
+    </a>
+
+    <a class="sjyx408_navCard" href="gallery.html">
+      <div class="sjyx408_navCardName">图文列表</div>
+      <div class="sjyx408_navCardDesc">调用 /api/gallery 读取图文数据，图片卡片展示拍摄地点与日期，同样附接口地址和原始数据。</div>
+      <span class="sjyx408_navCardTag">gallery.html</span>
+    </a>
+
+    <a class="sjyx408_navCard" href="database.html">
+      <div class="sjyx408_navCardName">数据库连接测试</div>
+      <div class="sjyx408_navCardDesc">输入用户名和密码，调用 /api/database/test 验证 MySQL 是否可连通，成功与失败都有提示。</div>
+      <span class="sjyx408_navCardTag">database.html</span>
+    </a>
+  </nav>
+
+  <footer class="sjyx408_footer">宋纪雨溪 · 24001010408 · 高级网页设计课程</footer>
+
+</div>
+
+<script src="js/sjyx408_home.js"></script>
+<script>
+  // 基础信息输出到控制台，方便核对
+  console.log('姓名：宋纪雨溪');
+  console.log('学号：24001010408');
+  console.log('项目名称：科技新闻站');
+  console.log('项目类别：自选');
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+/*
+姓名：宋纪雨溪 | 学号：24001010408 | 时间：2026-11-19 | 大模型：DeepSeek-V3
+列表页公用样式（新闻 / 图文）
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: #0b1020;
+  color: #e8eefc;
+  min-height: 100vh;
+  padding: 40px 20px 64px;
+}
+
+.sjyx408_wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* 页头 */
+.sjyx408_head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.sjyx408_headTitle {
+  font-size: 30px;
+  font-weight: 800;
+  background: linear-gradient(120deg, #7dd3fc, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sjyx408_headSub {
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: #93a4c4;
+}
+
+.sjyx408_back {
+  font-size: 13.5px;
+  color: #7dd3fc;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, .35);
+  transition: background .2s;
+}
+
+.sjyx408_back:hover {
+  background: rgba(125, 211, 252, .12);
+}
+
+/* 接口信息条 */
+.sjyx408_apiBar {
+  margin-top: 22px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, .08);
+  border: 1px solid rgba(56, 189, 248, .28);
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: #bae6fd;
+  word-break: break-all;
+}
+
+.sjyx408_apiBar .sjyx408_apiLabel {
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.sjyx408_apiBar a {
+  color: #7dd3fc;
+}
+
+.sjyx408_apiCount {
+  color: #86efac;
+}
+
+/* 状态提示 */
+.sjyx408_state {
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 14.5px;
+  color: #93a4c4;
+  background: rgba(255, 255, 255, .04);
+  border: 1px dashed rgba(255, 255, 255, .16);
+}
+
+.sjyx408_state.err {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, .1);
+  border-color: rgba(239, 68, 68, .35);
+}
+
+/* 新闻卡片 */
+.sjyx408_newsList {
+  margin-top: 26px;
+  display: grid;
+  gap: 18px;
+}
+
+.sjyx408_newsCard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 22px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+  transition: transform .2s, border-color .2s, background .2s;
+}
+
+.sjyx408_newsCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(125, 211, 252, .45);
+  background: rgba(125, 211, 252, .07);
+}
+
+.sjyx408_newsCover {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #111a30;
+}
+
+.sjyx408_newsBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sjyx408_newsTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #eaf2ff;
+  line-height: 1.5;
+}
+
+.sjyx408_newsSummary {
+  margin-top: 9px;
+  font-size: 13.8px;
+  line-height: 1.8;
+  color: #a8b8d4;
+}
+
+.sjyx408_newsMeta {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #8fa2c2;
+}
+
+.sjyx408_newsMeta span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.sjyx408_newsMeta .sjyx408_src {
+  color: #c4b5fd;
+  border-color: rgba(196, 181, 253, .35);
+  background: rgba(196, 181, 253, .1);
+}
+
+/* 图文卡片 */
+.sjyx408_galleryGrid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.sjyx408_galleryCard {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+  transition: transform .22s, border-color .22s, box-shadow .22s;
+}
+
+.sjyx408_galleryCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(167, 139, 250, .5);
+  box-shadow: 0 16px 34px rgba(124, 58, 237, .2);
+}
+
+.sjyx408_galleryImgBox {
+  position: relative;
+  width: 100%;
+  padding-top: 68%;
+  overflow: hidden;
+  background: #111a30;
+}
+
+.sjyx408_galleryImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+
+.sjyx408_galleryCard:hover .sjyx408_galleryImg {
+  transform: scale(1.06);
+}
+
+.sjyx408_galleryTextBox {
+  padding: 18px 20px 20px;
+}
+
+.sjyx408_galleryTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #eaf2ff;
+}
+
+.sjyx408_galleryBrief {
+  margin-top: 9px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: #a8b8d4;
+}
+
+.sjyx408_galleryMeta {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #8fa2c2;
+}
+
+.sjyx408_galleryMeta span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.sjyx408_galleryMeta .sjyx408_place {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, .32);
+  background: rgba(134, 239, 172, .1);
+}
+
+/* 原始数据面板 */
+.sjyx408_rawBox {
+  margin-top: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .12);
+}
+
+.sjyx408_rawHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, .05);
+  font-size: 13.5px;
+  color: #b6c7e4;
+}
+
+.sjyx408_rawToggle {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, .35);
+  background: rgba(125, 211, 252, .1);
+  color: #7dd3fc;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.sjyx408_rawToggle:hover {
+  background: rgba(125, 211, 252, .2);
+}
+
+.sjyx408_rawJson {
+  display: none;
+  margin: 0;
+  padding: 16px 18px;
+  max-height: 340px;
+  overflow: auto;
+  background: #070c18;
+  color: #9fe8c4;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.sjyx408_rawJson.show {
+  display: block;
+}
+
+.sjyx408_footer {
+  margin-top: 44px;
+  text-align: center;
+  font-size: 12.5px;
+  color: #6d7f9e;
+}
+
+@media (max-width: 720px) {
+  .sjyx408_newsCard { grid-template-columns: 1fr; }
+  .sjyx408_newsCover { height: 180px; }
+  .sjyx408_headTitle { font-size: 24px; }
+}

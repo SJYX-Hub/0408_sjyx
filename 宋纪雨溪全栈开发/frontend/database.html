@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据库连接测试 · 科技新闻站</title>
+<!--
+姓名：宋纪雨溪 | 学号：24001010408 | 时间：2026-11-19 | 大模型：DeepSeek-V3
+-->
+<link rel="stylesheet" href="css/sjyx408_database.css">
+</head>
+<body>
+
+<div class="sjyx408_box">
+  <h1 class="sjyx408_boxTitle">数据库连接测试</h1>
+  <p class="sjyx408_boxSub">输入 MySQL 用户名和密码，检测后端能否连上数据库</p>
+
+  <div class="sjyx408_field">
+    <label class="sjyx408_label" for="sjyx408_username">用户名</label>
+    <input class="sjyx408_input" id="sjyx408_username" type="text" value="root" autocomplete="off">
+  </div>
+
+  <div class="sjyx408_field">
+    <label class="sjyx408_label" for="sjyx408_password">密码</label>
+    <input class="sjyx408_input" id="sjyx408_password" type="password" value="root" autocomplete="off">
+  </div>
+
+  <button class="sjyx408_btn" id="sjyx408_btnTest" type="button">连接数据库</button>
+
+  <div class="sjyx408_result" id="sjyx408_result"></div>
+
+  <div class="sjyx408_boxSub" style="margin-top:16px;">接口地址：<span id="sjyx408_apiUrl"></span></div>
+
+  <a class="sjyx408_back" href="index.html">← 返回首页</a>
+</div>
+
+<script src="js/sjyx408_database.js"></script>
+</body>
+</html>

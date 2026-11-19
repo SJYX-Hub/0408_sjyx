@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图文列表 · 科技新闻站</title>
+<!--
+姓名：宋纪雨溪 | 学号：24001010408 | 时间：2026-11-19 | 大模型：DeepSeek-V3
+-->
+<link rel="stylesheet" href="css/sjyx408_list.css">
+</head>
+<body>
+
+<div class="sjyx408_wrap">
+
+  <div class="sjyx408_head">
+    <div>
+      <h1 class="sjyx408_headTitle">图文列表</h1>
+      <p class="sjyx408_headSub">数据取自 MySQL 表 sjyx408_gallery，由后端接口返回</p>
+    </div>
+    <a class="sjyx408_back" href="index.html">← 返回首页</a>
+  </div>
+
+  <div class="sjyx408_apiBar">
+    <div><span class="sjyx408_apiLabel">后端接口：</span><a id="sjyx408_apiLink" href="#" target="_blank"></a></div>
+    <div><span class="sjyx408_apiLabel">返回状态：</span><span id="sjyx408_apiState">加载中…</span></div>
+    <div><span class="sjyx408_apiLabel">数据条数：</span><span class="sjyx408_apiCount" id="sjyx408_apiCount">-</span></div>
+  </div>
+
+  <div class="sjyx408_state" id="sjyx408_state">正在加载图文数据…</div>
+
+  <div class="sjyx408_galleryGrid" id="sjyx408_galleryGrid"></div>
+
+  <div class="sjyx408_rawBox">
+    <div class="sjyx408_rawHead">
+      <span>接口返回的原始 JSON 数据</span>
+      <button class="sjyx408_rawToggle" id="sjyx408_rawToggle" type="button">展开</button>
+    </div>
+    <pre class="sjyx408_rawJson" id="sjyx408_rawJson"></pre>
+  </div>
+
+  <footer class="sjyx408_footer">宋纪雨溪 · 24001010408 · 科技新闻站</footer>
+
+</div>
+
+<script src="js/sjyx408_gallery.js"></script>
+</body>
+</html>
